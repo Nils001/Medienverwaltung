@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=
+comment0.target=DBV()
+comment0.text=public\ static\ void\ main(String[]args)throws\ Exception{\r\n\ \ \ \ conn\ \=\ null;\r\n\ \ \ \ try{\r\n\ \ \ \ Class.forName("com.mysql.jdbc.Driver");\r\n\ \ \ \ conn\ \=\ DriverManager.getConnection("jdbc\:mysql\://localhost/spielerdatenbank","root","");\r\n\r\n\ \ \ \ Statement\ st\ \=\ conn.createStatement();\r\n\ \ \ \ ResultSet\ rs\ \=\ st.executeQuery("SELECT\ *\ FROM\ spielertabelle");\r\n\r\n\ \ \ \ System.out.println("id");\r\n\r\n\ \ \ \ while(rs.next()){\r\n\ \ \ \ System.out.println(rs.getString("id"));\r\n\ \ \ \ }\r\n\r\n\ \ \ \ }\r\n\r\n\ \ \ \ catch(Exception\ e\ ){\r\n\ \ \ \ e.printStackTrace();\r\n\ \ \ \ }\r\n\ \ \ \ finally\ {\r\n\ \ \ \ if(conn\!\=\ null){\r\n\ \ \ \ conn.close();\r\n}
+comment1.params=
+comment1.target=void\ connect()
+comment2.params=
+comment2.target=void\ close()
+comment3.params=spielerName
+comment3.target=boolean\ sucheSpieler(java.lang.String)
+comment4.params=spielerName
+comment4.target=Spieler\ gibSpieler(java.lang.String)
+comment5.params=pSpieler
+comment5.target=void\ hinzuf\u00FCgen(Spieler)
+comment6.params=
+comment6.target=void\ schreiben()
+numComments=7
