@@ -1,80 +1,128 @@
+import java.sql.ResultSet;
 
 public class MV
 {
-    private int passwort;
+    private String passwort;
     private String name;
+    private DBV dbv;
 
-    public MV()
+    public MV(String benutzer, String pass)
     {
-        
+        name = benutzer;
+        passwort = pass;
+        dbv = new DBV(name, passwort);
     }
 
-    public String getFreiMedien(String zeit)
+    public ResultSet getFreiMedien(String zeit)
     {
-        return "";
+        try
+        {
+            dbv.connect();
+            ResultSet rs = verbindung("SELECT Name FROM user;");
+            dbv.close();
+            return rs;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return null;
     }
-    
-    public String getFreieRäume(String zeit)
+
+    public ResultSet getFreieRäume(String zeit)
+    {    
+        try
+        {
+            dbv.connect();
+            ResultSet rs = verbindung("SELECT Name FROM user;");
+            dbv.close();
+            return rs;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public ResultSet getRaum()
     {
-        return "";
+        try
+        {
+            dbv.connect();
+            ResultSet rs = verbindung("SELECT * FROM medien WHERE Typ LIKE %Raum%;"); //falsch
+            dbv.close();
+            return rs;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return null;
     }
-    
-    public String getRaum()
+
+    public ResultSet getMedien()
     {
-        return "";
+        try
+        {
+            dbv.connect();
+            ResultSet rs = verbindung("SELECT Name FROM user;");
+            dbv.close();
+            return rs;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return null;
     }
-    
-    public String getMedien()
-    {
-        return "";
-    }
-    
+
     public void setRaum(String zeit, int RaumID)
     {
     }
-    
+
     public void removeRaum(String zeit, int RaumID)
     {
     }
-    
+
     public void setMedium(String zeit, int mediumID)
     {
     }
-    
+
     public void removeMedium(String zeit, int mediumID)
     {
     }
-    
-    public void login(String name, String passwort)
+
+    public void login()
     {
     }
-    
+
     public void logout()
     {
     }
-    
+
     public void createRaum()
     {
     }
-    
+
     public void createMedium()
     {
     }
-    
+
     public void removeRaum()
     {
     }
-    
+
     public void removeMedium()
     {
     }
-    
-    public String abfrage(String querry)
+
+    /*public String abfrage(String querry)
     {
-        return "";
+    return "";
     }
-    
+
     public void setData(String wayne)
     {
-    }
+    }*/
 }
