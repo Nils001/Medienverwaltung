@@ -22,7 +22,7 @@ public class DBV
             //Laedt den Datenbanktreiber
             Class.forName(treiber);
             //Stellt die Verbindung her
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/mv", benutzer, passwort);
+            conn = DriverManager.getConnection("jdbc:mysql://84.200.76.8:3306/mv", benutzer, passwort);
             //Erzeugt ein Objekt fuer Abfragen und Aenderungen der Datenbank
             stmt = conn.createStatement();
         }
