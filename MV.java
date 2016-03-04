@@ -3,6 +3,11 @@ import java.util.Calendar;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MV
 {
@@ -10,23 +15,62 @@ public class MV
     private String name;
     private DBV dbv;
 
-    public MV(String benutzer, String pass)
+    public MV(/*String benutzer, String pass*/)
     {
-        name = "nils";//name = benutzer;
-        passwort = "nils";//passwort = pass;
+        name = "";//name = benutzer;
+        passwort = "";//passwort = pass;
         dbv = new DBV(name, passwort);
     }
 
-    public ResultSet getBelegung(String medienID, String datum) throws ParseException
+    private String[][] rsToArray (ResultSet rs) throws ParseException
+    {
+        try
+        {
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+
+            List rows = new ArrayList();
+            while(rs.next())
+            {
+                String[] row = new String[columnCount];
+                for(int i = 1;i<=columnCount;i++)
+                {
+                    row[i-1]=rs.getString(i);
+                }
+                rows.add(row);
+            }
+
+            String[][] rowData = (String[][])rows.toArray(new String[rows.size()][columnCount]);
+            return rowData;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    private String[][] belegungArray (ResultSet rs, String date) throws ParseException
+    {
+        String[][] zeitplan = new String[5][11];
+        zeitplan[1][1] = date;
+        return null;
+    }
+
+    public String[][] getBelegung(String medienID, String datum) throws ParseException
     {
         String date1 = datum1(datum); //Wochenstart
+        System.out.println(date1);
         String date2 = datum2(datum); //Wochenende
+        System.out.println(date2);
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT * FROM verwaltung WHERE MedienID = "+medienID+" AND Datum BETWEEN '"+date2+"' AND '"+date1+"';");  //funktioniert
+            ResultSet rs = dbv.verbindung("SELECT * FROM verwaltung WHERE MedienID = "+medienID+" AND Datum BETWEEN '"+date1+"' AND '"+date2+"'");  //funktioniert
+            String[][] a = rsToArray(rs);
+            a = belegungArray(rs, date1);
             dbv.close();
-            return rs;
+            return a;
         }
         catch (Exception e)
         {
@@ -35,14 +79,15 @@ public class MV
         return null;
     }
 
-    public ResultSet getRaum()
+    public String[][] getRaum()
     {
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT * FROM medien WHERE Typ LIKE '%Raum';"); //falsch
+            ResultSet rs = dbv.verbindung("SELECT * FROM medien WHERE Typ LIKE '%Raum'"); //falsch
+            String[][] a = rsToArray(rs);
             dbv.close();
-            return rs;
+            return a;
         }
         catch (Exception e)
         {
@@ -51,14 +96,15 @@ public class MV
         return null;
     }
 
-    public ResultSet getMedien()
+    public String[][] getMedien()
     {
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT * FROM medien WHERE Typ NOT LIKE '%Raum';"); //funktioniert
+            ResultSet rs = dbv.verbindung("SELECT * FROM medien WHERE Typ NOT LIKE '%Raum'"); //funktioniert
+            String[][] a = rsToArray(rs);
             dbv.close();
-            return rs;
+            return a;
         }
         catch (Exception e)
         {
