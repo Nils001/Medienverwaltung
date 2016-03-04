@@ -12,8 +12,8 @@ public class MV
 
     public MV(String benutzer, String pass)
     {
-        name = "root";//name = benutzer;
-        passwort = "nils1000";//passwort = pass;
+        name = "nils";//name = benutzer;
+        passwort = "nils";//passwort = pass;
         dbv = new DBV(name, passwort);
     }
 
