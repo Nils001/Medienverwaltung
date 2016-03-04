@@ -127,24 +127,42 @@ public class GUI
         JLabel lblJahr = new JLabel("Jahr");
         lblJahr.setBounds(160, 11, 37, 14);
         panel.add(lblJahr);
-
+        //monat combobox
         JComboBox comboBox = new JComboBox();
         comboBox.setBounds(66, 36, 66, 20);
         panel.add(comboBox);
+         for(int i = 1;i<13;i++)
+        {
+            comboBox.addItem(i);
+        }
+        // tag combobox
 
         JComboBox comboBox_1 = new JComboBox();
-        comboBox_1.setBounds(10, 36, 28, 20);
+        comboBox_1.setBounds(10, 36, 40, 20);
         panel.add(comboBox_1);
-
+        for(int i = 1;i<31;i++)
+        {
+            comboBox_1.addItem(i);
+        }
+        //jahrcombobox
         JComboBox comboBox_2 = new JComboBox();
-        comboBox_2.setBounds(160, 36, 46, 20);
+        comboBox_2.setBounds(160, 36, 55, 20);
         panel.add(comboBox_2);
+        comboBox_2.addItem(2015);
+        comboBox_2.addItem(2016);
+        comboBox_2.addItem(2017);
 
         JButton btnSuchen = new JButton("Suchen");
         btnSuchen.addActionListener(new ActionListener() 
             {
                 public void actionPerformed(ActionEvent arg0) 
                 {
+                    String datum = ""+comboBox_2.getSelectedItem()+"-"+comboBox.getSelectedItem()+"-"+comboBox_1.getSelectedItem();
+                    try{
+                        tabelleUpdaten(mv.getBelegung("1",datum));
+                    }
+                    catch(Exception ex)
+                    {}
                 }
             });
         btnSuchen.setBounds(10, 67, 349, 23);
@@ -213,11 +231,7 @@ public class GUI
             {
                 public void actionPerformed(ActionEvent e) 
                 {
-                    try{
-                        tabelleUpdaten(mv.getBelegung("1","2016-02-13"));
-                    }
-                    catch(Exception ex)
-                    {}
+
                 }
             });
         btnBuchen.setBounds(10, 296, 160, 23);
