@@ -47,7 +47,7 @@ public class MV
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT * FROM medien WHERE Typ LIKE '%Raum'"); //falsch
+            ResultSet rs = dbv.verbindung("SELECT * FROM medien WHERE Typ LIKE '%Raum'"); //funktioniert
             String[][] a = rsToArray(rs);
             dbv.close();
             return a;
@@ -76,20 +76,32 @@ public class MV
         return null;
     }
 
-    public void setRaum(String datum, int stunde, int RaumID)
+    public void set(String userID, String medienID, String datum, String stunde)
     {
+        try
+        {
+            dbv.connect();
+            ResultSet rs = dbv.verbindung("INSERT INTO 'mv'.'verwaltung' (`ID`, `UserID`, `MedienID`, `Datum`, `Stunde`, `timestamp`) VALUES ('NULL', '"+userID+"', '"+medienID+"', '"+datum+"', '"+stunde+"', 'timestamp')");
+            dbv.close();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
     }
 
-    public void unsetRaum(String datum, int stunde, int RaumID)
+    public void unset(String userID, String medienID, String datum, String stunde)
     {
-    }
-
-    public void setMedium(String datum, int stunde, int mediumID)
-    {
-    }
-
-    public void unsetMedium(String datum, int stunde, int mediumID)
-    {
+        try
+        {
+            dbv.connect();
+            ResultSet rs = dbv.verbindung("DELETE FROM 'mv'.'verwaltung' WHERE UserID = '"+userID+"' AND MedienID = '"+medienID+"' AND Datum = '"+datum+"' Stunde = '"+stunde+"'");
+            dbv.close();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
     }
 
     public void login()
@@ -100,20 +112,32 @@ public class MV
     {
     }
 
-    public void createRaum(String name, String typ)
+    public void create(String name, String typ)
     {
+                try
+        {
+            dbv.connect();
+            ResultSet rs = dbv.verbindung("INSERT INTO 'mv'.'medien' (`ID`, `Name`, `Typ`) VALUES ('NULL', '"+name+"', '"+typ+"')");
+            dbv.close();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
     }
 
-    public void createMedium(String name, String typ)
+    public void remove(String name)
     {
-    }
-
-    public void removeRaum(String name)
-    {
-    }
-
-    public void removeMedium(String name)
-    {
+        try
+        {
+            dbv.connect();
+            ResultSet rs = dbv.verbindung("DELETE FROM 'mv'.'medien' WHERE Name = '"+name+"'");
+            dbv.close();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
     }
 
     private String datum1(String date) throws ParseException
@@ -227,7 +251,7 @@ public class MV
         }
 
         zeitplan[0][0] = date;
-        for (int i = 0; i < 5; i++)
+        for (int i = 1; i < 5; i++)
         {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Calendar c = Calendar.getInstance();
