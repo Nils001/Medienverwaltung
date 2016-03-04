@@ -23,6 +23,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class gui {
 
@@ -58,6 +60,7 @@ public class gui {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setBounds(100, 100, 950, 440);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
@@ -127,6 +130,10 @@ public class gui {
 		panel.add(comboBox_2);
 		
 		JButton btnSuchen = new JButton("Suchen");
+		btnSuchen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnSuchen.setBounds(10, 67, 349, 23);
 		panel.add(btnSuchen);
 		
@@ -186,10 +193,18 @@ public class gui {
 		panel.add(table);
 		
 		JButton btnBuchen = new JButton("Buchen");
+		btnBuchen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnBuchen.setBounds(10, 296, 160, 23);
 		panel.add(btnBuchen);
 		
 		JButton btnEntfernen = new JButton("Entfernen");
+		btnEntfernen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnEntfernen.setBounds(199, 296, 160, 23);
 		panel.add(btnEntfernen);
 		
@@ -223,6 +238,10 @@ public class gui {
 		panel_1.add(comboBox_6);
 		
 		JButton button = new JButton("Suchen");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button.setBounds(10, 67, 349, 23);
 		panel_1.add(button);
 		
@@ -276,10 +295,18 @@ public class gui {
 		panel_1.add(table_1);
 		
 		JButton button_1 = new JButton("Buchen");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button_1.setBounds(10, 296, 160, 23);
 		panel_1.add(button_1);
 		
 		JButton button_2 = new JButton("Entfernen");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		button_2.setBounds(199, 296, 160, 23);
 		panel_1.add(button_2);
 	}
