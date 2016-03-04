@@ -47,7 +47,7 @@ public class MV
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT * FROM medien WHERE Typ LIKE '%Raum'"); //funktioniert
+            ResultSet rs = dbv.verbindung("SELECT Name FROM medien WHERE Typ LIKE '%Raum'"); //funktioniert
             String[][] a = rsToArray(rs);
             dbv.close();
             return a;
@@ -64,7 +64,7 @@ public class MV
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT * FROM medien WHERE Typ NOT LIKE '%Raum'"); //funktioniert
+            ResultSet rs = dbv.verbindung("SELECT Name FROM medien WHERE Typ NOT LIKE '%Raum'"); //funktioniert
             String[][] a = rsToArray(rs);
             dbv.close();
             return a;
@@ -76,10 +76,11 @@ public class MV
         return null;
     }
 
-    public void set(String userID, String medienID, String datum, String stunde)
+    public void set(String userID, String name, String datum, String stunde)
     {
         try
         {
+            String medienID = idToName(name);
             dbv.connect();
             ResultSet rs = dbv.verbindung("INSERT INTO 'mv'.'verwaltung' (`ID`, `UserID`, `MedienID`, `Datum`, `Stunde`, `timestamp`) VALUES ('NULL', '"+userID+"', '"+medienID+"', '"+datum+"', '"+stunde+"', 'timestamp')");
             dbv.close();
@@ -90,10 +91,11 @@ public class MV
         }
     }
 
-    public void unset(String userID, String medienID, String datum, String stunde)
+    public void unset(String userID, String name, String datum, String stunde)
     {
         try
         {
+            String medienID = idToName(name);
             dbv.connect();
             ResultSet rs = dbv.verbindung("DELETE FROM 'mv'.'verwaltung' WHERE UserID = '"+userID+"' AND MedienID = '"+medienID+"' AND Datum = '"+datum+"' Stunde = '"+stunde+"'");
             dbv.close();
@@ -112,9 +114,9 @@ public class MV
     {
     }
 
-    public void create(String name, String typ)
+    public void createMedium(String name, String typ)
     {
-                try
+        try
         {
             dbv.connect();
             ResultSet rs = dbv.verbindung("INSERT INTO 'mv'.'medien' (`ID`, `Name`, `Typ`) VALUES ('NULL', '"+name+"', '"+typ+"')");
@@ -126,12 +128,40 @@ public class MV
         }
     }
 
-    public void remove(String name)
+    public void removeMedium(String name)
     {
         try
         {
             dbv.connect();
             ResultSet rs = dbv.verbindung("DELETE FROM 'mv'.'medien' WHERE Name = '"+name+"'");
+            dbv.close();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    
+        public void createUser(String name, String passwort, String admin)
+    {
+        try
+        {
+            dbv.connect();
+            ResultSet rs = dbv.verbindung("INSERT INTO 'mv'.'user' ('ID', 'Name', 'Passwort', 'Admin') VALUES ('NULL', '"+name+"', '"+passwort+"', '"+admin+"')");
+            dbv.close();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+
+    public void removeUser(String name)
+    {
+        try
+        {
+            dbv.connect();
+            ResultSet rs = dbv.verbindung("DELETE FROM 'mv'.'user' WHERE Name = '"+name+"'");
             dbv.close();
         }
         catch (Exception e)
