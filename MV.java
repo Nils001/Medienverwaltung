@@ -24,7 +24,7 @@ public class MV
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT * FROM verwaltung WHERE MedienID = "+medienID+" AND Datum BETWEEN '"+date2+"' AND '"+date1+"';");  //falsch
+            ResultSet rs = dbv.verbindung("SELECT * FROM verwaltung WHERE MedienID = "+medienID+" AND Datum BETWEEN '"+date2+"' AND '"+date1+"';");  //funktioniert
             dbv.close();
             return rs;
         }
