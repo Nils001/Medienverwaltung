@@ -29,6 +29,7 @@ public class GUI
     private JFrame frame;
     private JTable table;
     private JTable table_1;
+    private MV mv;
 
     /**
      * Launch the application.
@@ -41,6 +42,7 @@ public class GUI
                 {
                     try 
                     {
+
                         GUI window = new GUI();
                         window.frame.setVisible(true);
                     } catch (Exception e) 
@@ -56,13 +58,15 @@ public class GUI
      */
     public GUI() 
     {
+        mv=new MV();
         initialize();
+
     }
 
     /**
      * Initialize the contents of the frame.
      */
-    private void initialize() 
+    public void initialize() 
     {
         frame = new JFrame();
         frame.setResizable(false);
@@ -209,6 +213,11 @@ public class GUI
             {
                 public void actionPerformed(ActionEvent e) 
                 {
+                    try{
+                        tabelleUpdaten(mv.getBelegung("1","2016-02-13"));
+                    }
+                    catch(Exception ex)
+                    {}
                 }
             });
         btnBuchen.setBounds(10, 296, 160, 23);
@@ -331,5 +340,18 @@ public class GUI
             });
         button_2.setBounds(199, 296, 160, 23);
         panel_1.add(button_2);
+    }
+
+    public void tabelleUpdaten(Object[][] a)
+    {
+        for(int zeile = 0; zeile<11; zeile++)
+        {
+            for(int spalte = 0 ; spalte<5;spalte++)
+            {
+                table.setValueAt(a[spalte][zeile],zeile+1,spalte+1);
+
+            }
+        }
+
     }
 }
