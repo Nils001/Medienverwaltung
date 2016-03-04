@@ -22,55 +22,18 @@ public class MV
         dbv = new DBV(name, passwort);
     }
 
-    private String[][] rsToArray (ResultSet rs) throws ParseException
-    {
-        try
-        {
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnCount = rsmd.getColumnCount();
-
-            List rows = new ArrayList();
-            while(rs.next())
-            {
-                String[] row = new String[columnCount];
-                for(int i = 1;i<=columnCount;i++)
-                {
-                    row[i-1]=rs.getString(i);
-                }
-                rows.add(row);
-            }
-
-            String[][] rowData = (String[][])rows.toArray(new String[rows.size()][columnCount]);
-            return rowData;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
-        return null;
-    }
-
-    private String[][] belegungArray (ResultSet rs, String date) throws ParseException
-    {
-        String[][] zeitplan = new String[5][11];
-        zeitplan[1][1] = date;
-        return null;
-    }
-
-    public String[][] getBelegung(String medienID, String datum) throws ParseException
+    public Object[][] getBelegung(String medienID, String datum) throws ParseException
     {
         String date1 = datum1(datum); //Wochenstart
-        System.out.println(date1);
         String date2 = datum2(datum); //Wochenende
-        System.out.println(date2);
         try
         {
             dbv.connect();
             ResultSet rs = dbv.verbindung("SELECT * FROM verwaltung WHERE MedienID = "+medienID+" AND Datum BETWEEN '"+date1+"' AND '"+date2+"'");  //funktioniert
             String[][] a = rsToArray(rs);
-            a = belegungArray(rs, date1);
+            Object[][] b = belegungArray(a, date1);
             dbv.close();
-            return a;
+            return b;
         }
         catch (Exception e)
         {
@@ -221,5 +184,88 @@ public class MV
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK); //gibt den Wochentag an
 
         return dayOfWeek-2; //fängt mit Montag = 2 an, soll aber bei Montag = 0 anfangen
+    }
+
+    private String[][] rsToArray (ResultSet rs) throws ParseException //macht aus ResultSet ein zweidimesionales String Array
+    {
+        try
+        {
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+
+            List<String[]> rows = new ArrayList<String[]>();
+            while(rs.next())
+            {
+                String[] row = new String[columnCount];
+                for(int i = 1;i<=columnCount;i++)
+                {
+                    row[i-1]=rs.getString(i);
+                }
+                rows.add(row);
+            }
+
+            String[][] rowData = (String[][])rows.toArray(new String[rows.size()][columnCount]);
+            return rowData;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    private Object[][] belegungArray (String[][] a, String date) throws ParseException
+    {
+        Object[][] zeitplan = new Object[5][11];
+
+        for (int e = 0; e < 5; e++)
+        {
+            for (int f = 1; f < 11; f++)
+            {
+                zeitplan[e][f] = false;
+            }
+        }
+
+        zeitplan[0][0] = date;
+        for (int i = 0; i < 5; i++)
+        {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar c = Calendar.getInstance();
+            c.setTime(sdf.parse(date));
+            c.add(Calendar.DATE, 1);
+            date = sdf.format(c.getTime()); 
+            zeitplan[i][0] = date;
+        }
+
+        for (int b = 0; b < a.length; b++)
+        {
+            int d = 0;
+            while (!zeitplan[d][0].equals(a[b][3]) && d < 5)
+            {
+                d++;
+            }
+            int stun = Integer.parseInt(a[b][4]);
+            String name = idToName(a[b][1]);
+            zeitplan[d][stun] = name;
+        }
+
+        return zeitplan;
+    }
+
+    private String idToName(String id) throws ParseException
+    {
+        try
+        {
+            dbv.connect();
+            ResultSet rs = dbv.verbindung("SELECT Name FROM user WHERE ID = "+id);  //funktioniert
+            String[][] a = rsToArray(rs);
+            dbv.close();
+            return a[0][0];
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return null;
     }
 }
