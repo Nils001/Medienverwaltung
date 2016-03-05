@@ -131,7 +131,7 @@ public class GUI
         JComboBox comboBox = new JComboBox();
         comboBox.setBounds(66, 36, 66, 20);
         panel.add(comboBox);
-         for(int i = 1;i<13;i++)
+        for(int i = 1;i<13;i++)
         {
             comboBox.addItem(i);
         }
@@ -148,9 +148,21 @@ public class GUI
         JComboBox comboBox_2 = new JComboBox();
         comboBox_2.setBounds(160, 36, 55, 20);
         panel.add(comboBox_2);
-        comboBox_2.addItem(2015);
         comboBox_2.addItem(2016);
         comboBox_2.addItem(2017);
+        comboBox_2.addItem(2015);
+        
+       JComboBox comboBox_3 = new JComboBox();
+       // medien combobox
+        
+        comboBox_3.setBounds(259, 36, 100, 20);
+        panel.add(comboBox_3);
+        String[][] a = mv.getMedien();
+        for(int i=0;i<a.length;i++)
+        {
+            comboBox_3.addItem(a[i][0]);
+        }
+
 
         JButton btnSuchen = new JButton("Suchen");
         btnSuchen.addActionListener(new ActionListener() 
@@ -158,8 +170,9 @@ public class GUI
                 public void actionPerformed(ActionEvent arg0) 
                 {
                     String datum = ""+comboBox_2.getSelectedItem()+"-"+comboBox.getSelectedItem()+"-"+comboBox_1.getSelectedItem();
+                    String medienName = (String) comboBox_3.getSelectedItem();
                     try{
-                        tabelleUpdaten(mv.getBelegung("1",datum));
+                        tabelleUpdaten(mv.getBelegung(medienName,datum));
                     }
                     catch(Exception ex)
                     {}
@@ -171,11 +184,7 @@ public class GUI
         JLabel lblMedium = new JLabel("Medium");
         lblMedium.setBounds(259, 11, 100, 14);
         panel.add(lblMedium);
-
-        JComboBox comboBox_3 = new JComboBox();
-        comboBox_3.setBounds(259, 36, 100, 20);
-        panel.add(comboBox_3);
-
+        
         JLabel lblAusgewhlt = new JLabel("Ausgew\u00E4hlt:");
         lblAusgewhlt.setBounds(10, 101, 60, 14);
         panel.add(lblAusgewhlt);
