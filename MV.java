@@ -346,7 +346,7 @@ public class MV
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT ID FROM medien WHERE Name = "+id);  //funktioniert
+            ResultSet rs = dbv.verbindung("SELECT Name FROM medien WHERE ID = "+id);  //funktioniert
             String[][] a = rsToArray(rs);
             dbv.close();
             return a[0][0];
@@ -363,7 +363,7 @@ public class MV
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT Name FROM medien WHERE ID = "+name);  //funktioniert
+            ResultSet rs = dbv.verbindung("SELECT ID FROM medien WHERE Name = "+name);  //funktioniert
             String[][] a = rsToArray(rs);
             dbv.close();
             return a[0][0];
