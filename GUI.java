@@ -24,6 +24,7 @@ import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class GUI 
 {
@@ -46,8 +47,7 @@ public class GUI
                     try 
                     {
 
-                        GUI window = new GUI();
-                        window.frame.setVisible(true);
+                        
                     } catch (Exception e) 
                     {
                         e.printStackTrace();
@@ -63,14 +63,14 @@ public class GUI
      */
     public GUI() 
     {
-        mv=new MV();
+
         initialize();
     }
 
     /**
      * Initialize the contents of the frame.
      */
-    public void initialize() 
+    private void initialize() 
     {
         frame = new JFrame();
         frame.setResizable(false);
@@ -302,7 +302,6 @@ public class GUI
         comboBox_6.addItem(2015);
         panel_1.add(comboBox_6);
 
-
         JLabel label_5 = new JLabel("Räume");
         label_5.setBounds(259, 11, 100, 14);
         panel_1.add(label_5);
@@ -342,10 +341,10 @@ public class GUI
                     }
                     catch(Exception ex)
                     {
-                    JOptionPane.showMessageDialog(null, ex.toString(), "Error",
-                                    JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, ex.toString(), "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     }
-                    
+
                 }
             });
         button.setBounds(10, 67, 349, 23);
@@ -424,5 +423,58 @@ public class GUI
 
             }
         }
+    }
+
+    private void initialize_login() {
+        try{
+            mv=new MV();
+        }
+        catch(Exception ex)
+        {
+         JOptionPane.showMessageDialog(null, ex.toString(), "Error",
+                            JOptionPane.ERROR_MESSAGE);
+        }
+        JFrame frmLogin = new JFrame();
+        frmLogin.setTitle("Login");
+        frmLogin.setResizable(false);
+        frmLogin.setBounds(100, 100, 200, 193);
+        frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmLogin.getContentPane().setLayout(null);
+
+        JTextField  textField = new JTextField();
+        textField.setBounds(10, 42, 174, 20);
+        frmLogin.getContentPane().add(textField);
+        textField.setColumns(10);
+
+        JLabel lblBenutzername = new JLabel("Benutzername");
+        lblBenutzername.setBounds(10, 11, 93, 20);
+        frmLogin.getContentPane().add(lblBenutzername);
+
+        JLabel lblPasswort = new JLabel("Passwort");
+        lblPasswort.setBounds(10, 73, 93, 20);
+        frmLogin.getContentPane().add(lblPasswort);
+
+        JPasswordField textField_1 = new JPasswordField();
+        textField_1.setBounds(10, 101, 174, 20);
+        frmLogin.getContentPane().add(textField_1);
+        textField_1.setColumns(10);
+
+        JButton btnNewButton = new JButton("Login");
+        btnNewButton.setActionCommand("Login");
+        btnNewButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+                    if(textField.getText()!=null && textField_1.getText()!=null)
+                    {
+                        String benutzername = textField.getText();
+                        String passwort= textField_1.getText();
+                        
+                        
+                        GUI window = new GUI();
+                        window.frame.setVisible(true);
+                    }
+                }
+            });
+        btnNewButton.setBounds(10, 132, 174, 23);
+        frmLogin.getContentPane().add(btnNewButton);
     }
 }
