@@ -22,8 +22,9 @@ public class MV
         dbv = new DBV(name, passwort);
     }
 
-    public Object[][] getBelegung(String medienID, String datum) throws ParseException
+    public Object[][] getBelegung(String name, String datum) throws ParseException
     {
+        String medienID = mediumToID(name);
         String date1 = datum1(datum); //Wochenstart
         String date2 = datum2(datum); //Wochenende
         try

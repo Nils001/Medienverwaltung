@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.params=
 comment0.target=MV()
-comment1.params=medienID\ datum
+comment1.params=name\ datum
 comment1.target=java.lang.Object[][]\ getBelegung(java.lang.String,\ java.lang.String)
 comment10.params=name\ passwort\ admin
 comment10.target=void\ createUser(java.lang.String,\ java.lang.String,\ java.lang.String)
