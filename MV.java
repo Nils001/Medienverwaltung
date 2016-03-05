@@ -80,7 +80,7 @@ public class MV
     {
         try
         {
-            String medienID = idToName(name);
+            String medienID = mediumToID(name);
             dbv.connect();
             ResultSet rs = dbv.verbindung("INSERT INTO 'mv'.'verwaltung' (`ID`, `UserID`, `MedienID`, `Datum`, `Stunde`, `timestamp`) VALUES ('NULL', '"+userID+"', '"+medienID+"', '"+datum+"', '"+stunde+"', 'timestamp')");
             dbv.close();
@@ -95,7 +95,7 @@ public class MV
     {
         try
         {
-            String medienID = idToName(name);
+            String medienID = mediumToID(name);
             dbv.connect();
             ResultSet rs = dbv.verbindung("DELETE FROM 'mv'.'verwaltung' WHERE UserID = '"+userID+"' AND MedienID = '"+medienID+"' AND Datum = '"+datum+"' Stunde = '"+stunde+"'");
             dbv.close();
@@ -141,8 +141,8 @@ public class MV
             System.out.println(e);
         }
     }
-    
-        public void createUser(String name, String passwort, String admin)
+
+    public void createUser(String name, String passwort, String admin)
     {
         try
         {
@@ -312,6 +312,57 @@ public class MV
         {
             dbv.connect();
             ResultSet rs = dbv.verbindung("SELECT Name FROM user WHERE ID = "+id);  //funktioniert
+            String[][] a = rsToArray(rs);
+            dbv.close();
+            return a[0][0];
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    private String NameToID(String name) throws ParseException
+    {
+        try
+        {
+            dbv.connect();
+            ResultSet rs = dbv.verbindung("SELECT ID FROM user WHERE Name = "+name);  //funktioniert
+            String[][] a = rsToArray(rs);
+            dbv.close();
+            return a[0][0];
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    private String idToMedium(String id) throws ParseException
+    {
+        try
+        {
+            dbv.connect();
+            ResultSet rs = dbv.verbindung("SELECT ID FROM medien WHERE Name = "+id);  //funktioniert
+            String[][] a = rsToArray(rs);
+            dbv.close();
+            return a[0][0];
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    private String mediumToID(String name) throws ParseException
+    {
+        try
+        {
+            dbv.connect();
+            ResultSet rs = dbv.verbindung("SELECT Name FROM medien WHERE ID = "+name);  //funktioniert
             String[][] a = rsToArray(rs);
             dbv.close();
             return a[0][0];
