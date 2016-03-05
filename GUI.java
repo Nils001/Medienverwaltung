@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -30,6 +31,8 @@ public class GUI
     private JTable table;
     private JTable table_1;
     private MV mv;
+    private Object[][] medien;
+    private Object[][] räume;
 
     /**
      * Launch the application.
@@ -48,6 +51,8 @@ public class GUI
                     } catch (Exception e) 
                     {
                         e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e.toString(), "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     }
                 }
             });
@@ -170,10 +175,13 @@ public class GUI
                     String datum = ""+comboBox_2.getSelectedItem()+"-"+comboBox.getSelectedItem()+"-"+comboBox_1.getSelectedItem();
                     String medienName = (String) comboBox_3.getSelectedItem();
                     try{
-                        tabelleUpdaten(mv.getBelegung(medienName,datum));
+                        MedienTabelleUpdaten(mv.getBelegung(medienName,datum));
                     }
                     catch(Exception ex)
-                    {}
+                    {
+                        JOptionPane.showMessageDialog(null, ex.toString(), "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             });
         btnSuchen.setBounds(10, 67, 349, 23);
@@ -195,7 +203,7 @@ public class GUI
         separator.setOrientation(SwingConstants.VERTICAL);
         separator.setBounds(369, 11, 2, 308);
         panel.add(separator);
-
+        // medien tabelle
         table = new JTable();
         table.setRowMargin(3);
         table.setRowHeight(25);
@@ -268,28 +276,32 @@ public class GUI
         JLabel label_4 = new JLabel("Jahr");
         label_4.setBounds(160, 11, 37, 14);
         panel_1.add(label_4);
-
+        // monate
         JComboBox comboBox_4 = new JComboBox();
         comboBox_4.setBounds(66, 36, 66, 20);
         panel_1.add(comboBox_4);
-
+        for(int i = 1;i<13;i++)
+        {
+            comboBox_4.addItem(i);
+        }
+        // tage 
         JComboBox comboBox_5 = new JComboBox();
-        comboBox_5.setBounds(10, 36, 28, 20);
+        comboBox_5.setBounds(10, 36, 40, 20);
         panel_1.add(comboBox_5);
 
+        for(int i = 1;i<31;i++)
+        {
+            comboBox_5.addItem(i);
+        }
+        //jahre
         JComboBox comboBox_6 = new JComboBox();
         comboBox_6.setBounds(160, 36, 46, 20);
+
+        comboBox_6.addItem(2016);
+        comboBox_6.addItem(2017);
+        comboBox_6.addItem(2015);
         panel_1.add(comboBox_6);
 
-        JButton button = new JButton("Suchen");
-        button.addActionListener(new ActionListener() 
-            {
-                public void actionPerformed(ActionEvent e) 
-                {
-                }
-            });
-        button.setBounds(10, 67, 349, 23);
-        panel_1.add(button);
 
         JLabel label_5 = new JLabel("Räume");
         label_5.setBounds(259, 11, 100, 14);
@@ -298,6 +310,11 @@ public class GUI
         JComboBox comboBox_7 = new JComboBox();
         comboBox_7.setBounds(259, 36, 100, 20);
         panel_1.add(comboBox_7);
+        String[][] b = mv.getRaum();
+        for(int i=0;i<b.length;i++)
+        {
+            comboBox_7.addItem(b[i][0]);
+        }
 
         JLabel label_6 = new JLabel("Ausgew\u00E4hlt:");
         label_6.setBounds(10, 101, 60, 14);
@@ -312,6 +329,28 @@ public class GUI
         separator_1.setBounds(369, 11, 2, 308);
         panel_1.add(separator_1);
 
+        JButton button = new JButton("Suchen");
+        button.addActionListener(new ActionListener() 
+            {
+                public void actionPerformed(ActionEvent e) 
+                {
+
+                    String datum = ""+comboBox_6.getSelectedItem()+"-"+comboBox_4.getSelectedItem()+"-"+comboBox_5.getSelectedItem();
+                    String raumName = (String) comboBox_7.getSelectedItem();
+                    try{
+                        MedienTabelleUpdaten(mv.getBelegung(raumName,datum));
+                    }
+                    catch(Exception ex)
+                    {
+                    JOptionPane.showMessageDialog(null, ex.toString(), "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                }
+            });
+        button.setBounds(10, 67, 349, 23);
+        panel_1.add(button);
+        // raum tabelle
         table_1 = new JTable();
         table_1.setRowMargin(3);
         table_1.setRowHeight(25);
@@ -361,13 +400,27 @@ public class GUI
         panel_1.add(button_2);
     }
 
-    public void tabelleUpdaten(Object[][] a)
+    public void MedienTabelleUpdaten(Object[][] a)
     {
+        medien = a;
         for(int zeile = 0; zeile<11; zeile++)
         {
             for(int spalte = 0 ; spalte<5;spalte++)
             {
                 table.setValueAt(a[spalte][zeile],zeile+1,spalte+1);
+
+            }
+        }
+    }
+
+    public void RaumTabelleUpdaten(Object[][] a)
+    {
+        räume = a;
+        for(int zeile = 0; zeile<11; zeile++)
+        {
+            for(int spalte = 0 ; spalte<5;spalte++)
+            {
+                table_1.setValueAt(a[spalte][zeile],zeile+1,spalte+1);
 
             }
         }
