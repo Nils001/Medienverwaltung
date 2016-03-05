@@ -26,7 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
-public class GUI 
+public class gui
 {
     private JFrame frame;
     private JTable table;
@@ -34,7 +34,8 @@ public class GUI
     private MV mv;
     private Object[][] medien;
     private Object[][] räume;
-
+    private String nutzername;
+    
     /**
      * Launch the application.
      */
@@ -46,8 +47,7 @@ public class GUI
                 {
                     try 
                     {
-
-                        
+                        gui window = new gui();
                     } catch (Exception e) 
                     {
                         e.printStackTrace();
@@ -61,10 +61,10 @@ public class GUI
     /**
      * Create the application.
      */
-    public GUI() 
+    public gui() 
     {
 
-        initialize();
+        initialize_login();
     }
 
     /**
@@ -161,10 +161,17 @@ public class GUI
 
         comboBox_3.setBounds(259, 36, 100, 20);
         panel.add(comboBox_3);
-        String[][] a = mv.getMedien();
-        for(int i=0;i<a.length;i++)
+        try{
+            String[][] a = mv.getMedien();
+            for(int i=0;i<a.length;i++)
+            {
+                comboBox_3.addItem(a[i][0]);
+            }
+        }
+        catch (Exception e)
         {
-            comboBox_3.addItem(a[i][0]);
+            JOptionPane.showMessageDialog(null, e.toString(), "Error",
+                JOptionPane.ERROR_MESSAGE);
         }
 
         JButton btnSuchen = new JButton("Suchen");
@@ -295,7 +302,7 @@ public class GUI
         }
         //jahre
         JComboBox comboBox_6 = new JComboBox();
-        comboBox_6.setBounds(160, 36, 46, 20);
+        comboBox_6.setBounds(160, 36, 55, 20);
 
         comboBox_6.addItem(2016);
         comboBox_6.addItem(2017);
@@ -309,10 +316,17 @@ public class GUI
         JComboBox comboBox_7 = new JComboBox();
         comboBox_7.setBounds(259, 36, 100, 20);
         panel_1.add(comboBox_7);
-        String[][] b = mv.getRaum();
-        for(int i=0;i<b.length;i++)
+        try{
+            String[][] b = mv.getRaum();
+            for(int i=0;i<b.length;i++)
+            {
+                comboBox_7.addItem(b[i][0]);
+            }
+        }
+        catch (Exception e)
         {
-            comboBox_7.addItem(b[i][0]);
+            JOptionPane.showMessageDialog(null, e.toString(), "Error",
+                JOptionPane.ERROR_MESSAGE);
         }
 
         JLabel label_6 = new JLabel("Ausgew\u00E4hlt:");
@@ -431,8 +445,8 @@ public class GUI
         }
         catch(Exception ex)
         {
-         JOptionPane.showMessageDialog(null, ex.toString(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.toString(), "Error",
+                JOptionPane.ERROR_MESSAGE);
         }
         JFrame frmLogin = new JFrame();
         frmLogin.setTitle("Login");
@@ -467,14 +481,25 @@ public class GUI
                     {
                         String benutzername = textField.getText();
                         String passwort= textField_1.getText();
-                        
-                        
-                        GUI window = new GUI();
-                        window.frame.setVisible(true);
+                        try{
+                            if(mv.login(benutzername,passwort)!= 0)
+                            {
+                                nutzername = benutzername;
+                            }
+                        }
+                        catch(Exception e)
+                        {
+                            JOptionPane.showMessageDialog(null, e.toString(), "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        }
+                        initialize();
+                        frame.setVisible(true);
+                        frmLogin.setVisible(false);
                     }
                 }
             });
         btnNewButton.setBounds(10, 132, 174, 23);
         frmLogin.getContentPane().add(btnNewButton);
+        frmLogin.setVisible(true);
     }
 }

@@ -16,11 +16,17 @@ public class MV
     private DBV dbv;
     private int status;
 
-    public MV(/*String benutzer, String pass*/)
+    public MV(/*String benutzer, String pass*/) throws Exception
     {
         name = "";//name = benutzer;
         passwort = "";//passwort = pass;
-        dbv = new DBV(name, passwort);
+        try{
+            dbv = new DBV(name, passwort);
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
     }
 
     public Object[][] getBelegung(String name, String datum) throws ParseException
@@ -47,7 +53,7 @@ public class MV
         return null;
     }
 
-    public String[][] getRaum()
+    public String[][] getRaum() throws Exception
     {
         if (status == 10 || status == 11)
         {
@@ -61,13 +67,13 @@ public class MV
             }
             catch (Exception e)
             {
-                System.out.println(e);
+                throw e;
             }
         }
         return null;
     }
 
-    public String[][] getMedien()
+    public String[][] getMedien() throws Exception
     {
         if (status == 10 || status == 11)
         {
@@ -81,7 +87,7 @@ public class MV
             }
             catch (Exception e)
             {
-                System.out.println(e);
+                throw e;
             }
         }
         return null;
@@ -123,7 +129,7 @@ public class MV
         }
     }
 
-    public int login(String name, String passwort)
+    public int login(String name, String passwort) throws Exception
     {
         try
         {
@@ -160,11 +166,14 @@ public class MV
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            
+            throw e;
         }
-        status = 00;
-        return 00;
+        
+        
     }
+
+}
 
     public void logout()
     {

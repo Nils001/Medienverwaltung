@@ -9,10 +9,18 @@ public class DBV
     private String passwort;
     private Statement stmt;
 
-    public DBV(String user, String pass)
+    public DBV(String user, String pass)throws Exception
     {
         benutzer = user;
         passwort = pass;
+        try {
+            connect();
+            close();
+        }
+        catch(Exception e)
+        {
+            throw e;
+        }
     }
 
     public void connect() throws Exception
