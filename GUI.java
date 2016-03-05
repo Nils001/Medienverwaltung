@@ -35,7 +35,7 @@ public class gui
     private Object[][] medien;
     private Object[][] räume;
     private String nutzername;
-    
+
     /**
      * Launch the application.
      */
@@ -131,6 +131,9 @@ public class gui
         JLabel lblJahr = new JLabel("Jahr");
         lblJahr.setBounds(160, 11, 37, 14);
         panel.add(lblJahr);
+         JLabel label_1 = new JLabel(" BEAMER ");
+        label_1.setBounds(80, 101, 46, 14);
+        panel.add(label_1);
         //monat combobox
         JComboBox comboBox = new JComboBox();
         comboBox.setBounds(66, 36, 66, 20);
@@ -181,6 +184,7 @@ public class gui
                 {
                     String datum = ""+comboBox_2.getSelectedItem()+"-"+comboBox.getSelectedItem()+"-"+comboBox_1.getSelectedItem();
                     String medienName = (String) comboBox_3.getSelectedItem();
+                    label_1.setText(medienName);
                     try{
                         MedienTabelleUpdaten(mv.getBelegung(medienName,datum));
                     }
@@ -202,9 +206,7 @@ public class gui
         lblAusgewhlt.setBounds(10, 101, 60, 14);
         panel.add(lblAusgewhlt);
 
-        JLabel label_1 = new JLabel(" BEAMER ");
-        label_1.setBounds(80, 101, 46, 14);
-        panel.add(label_1);
+       
 
         JSeparator separator = new JSeparator();
         separator.setOrientation(SwingConstants.VERTICAL);
@@ -350,8 +352,10 @@ public class gui
 
                     String datum = ""+comboBox_6.getSelectedItem()+"-"+comboBox_4.getSelectedItem()+"-"+comboBox_5.getSelectedItem();
                     String raumName = (String) comboBox_7.getSelectedItem();
+                    label_7.setText(raumName);
                     try{
                         MedienTabelleUpdaten(mv.getBelegung(raumName,datum));
+                        
                     }
                     catch(Exception ex)
                     {
@@ -485,16 +489,23 @@ public class gui
                             if(mv.login(benutzername,passwort)!= 0)
                             {
                                 nutzername = benutzername;
+                                initialize();
+                                frame.setVisible(true);
+                                frmLogin.setVisible(false);
                             }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(null, "Falscher Nutzer oder Falsches Passwort", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                            }
+
                         }
                         catch(Exception e)
                         {
-                            JOptionPane.showMessageDialog(null, e.toString(), "Error",
+                            JOptionPane.showMessageDialog(null, e, "Error",
                                 JOptionPane.ERROR_MESSAGE);
                         }
-                        initialize();
-                        frame.setVisible(true);
-                        frmLogin.setVisible(false);
+
                     }
                 }
             });
