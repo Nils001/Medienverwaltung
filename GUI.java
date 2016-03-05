@@ -26,7 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
-public class gui
+public class GUI
 {
     private JFrame frame;
     private JTable table;
@@ -47,7 +47,7 @@ public class gui
                 {
                     try 
                     {
-                        gui window = new gui();
+                        GUI window = new GUI();
                     } catch (Exception e) 
                     {
                         e.printStackTrace();
@@ -61,9 +61,8 @@ public class gui
     /**
      * Create the application.
      */
-    public gui() 
+    public GUI() 
     {
-
         initialize_login();
     }
 
@@ -131,7 +130,7 @@ public class gui
         JLabel lblJahr = new JLabel("Jahr");
         lblJahr.setBounds(160, 11, 37, 14);
         panel.add(lblJahr);
-         JLabel label_1 = new JLabel(" BEAMER ");
+        JLabel label_1 = new JLabel(" BEAMER ");
         label_1.setBounds(80, 101, 46, 14);
         panel.add(label_1);
         //monat combobox
@@ -173,8 +172,7 @@ public class gui
         }
         catch (Exception e)
         {
-            JOptionPane.showMessageDialog(null, e.toString(), "Error",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         JButton btnSuchen = new JButton("Suchen");
@@ -182,7 +180,7 @@ public class gui
             {
                 public void actionPerformed(ActionEvent arg0) 
                 {
-                    String datum = ""+comboBox_2.getSelectedItem()+"-"+comboBox.getSelectedItem()+"-"+comboBox_1.getSelectedItem();
+                    String datum = "" + comboBox_2.getSelectedItem() + "-" + comboBox.getSelectedItem() + "-" + comboBox_1.getSelectedItem();
                     String medienName = (String) comboBox_3.getSelectedItem();
                     label_1.setText(medienName);
                     try{
@@ -206,8 +204,6 @@ public class gui
         lblAusgewhlt.setBounds(10, 101, 60, 14);
         panel.add(lblAusgewhlt);
 
-       
-
         JSeparator separator = new JSeparator();
         separator.setOrientation(SwingConstants.VERTICAL);
         separator.setBounds(369, 11, 2, 308);
@@ -220,7 +216,7 @@ public class gui
         table.setModel(new DefaultTableModel(
                 new Object[][] {
                     {null, "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"},
-                    {"", "1. Jan", "2. Jan", "3. Jan", "4. Jan", "5. Jan"},
+                    {"", "2016-01-01", "2016-01-02", "2016-01-03", "2016-01-04", "2016-01-05"},
                     {" 1. Stunde", null, null, null, null, null},
                     {" 2. Stunde", null, null, null, null, null},
                     {" 3. Stunde", null, null, null, null, null},
@@ -285,6 +281,7 @@ public class gui
         JLabel label_4 = new JLabel("Jahr");
         label_4.setBounds(160, 11, 37, 14);
         panel_1.add(label_4);
+
         // monate
         JComboBox comboBox_4 = new JComboBox();
         comboBox_4.setBounds(66, 36, 66, 20);
@@ -293,15 +290,16 @@ public class gui
         {
             comboBox_4.addItem(i);
         }
+
         // tage 
         JComboBox comboBox_5 = new JComboBox();
         comboBox_5.setBounds(10, 36, 40, 20);
         panel_1.add(comboBox_5);
-
         for(int i = 1;i<31;i++)
         {
             comboBox_5.addItem(i);
         }
+
         //jahre
         JComboBox comboBox_6 = new JComboBox();
         comboBox_6.setBounds(160, 36, 55, 20);
@@ -327,8 +325,7 @@ public class gui
         }
         catch (Exception e)
         {
-            JOptionPane.showMessageDialog(null, e.toString(), "Error",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         JLabel label_6 = new JLabel("Ausgew\u00E4hlt:");
@@ -349,25 +346,23 @@ public class gui
             {
                 public void actionPerformed(ActionEvent e) 
                 {
-
                     String datum = ""+comboBox_6.getSelectedItem()+"-"+comboBox_4.getSelectedItem()+"-"+comboBox_5.getSelectedItem();
                     String raumName = (String) comboBox_7.getSelectedItem();
                     label_7.setText(raumName);
-                    try{
+                    try
+                    {
                         MedienTabelleUpdaten(mv.getBelegung(raumName,datum));
-                        
                     }
                     catch(Exception ex)
                     {
-                        JOptionPane.showMessageDialog(null, ex.toString(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
-
                 }
             });
         button.setBounds(10, 67, 349, 23);
-        panel_1.add(button);
+
         // raum tabelle
+        panel_1.add(button);
         table_1 = new JTable();
         table_1.setRowMargin(3);
         table_1.setRowHeight(25);
@@ -389,9 +384,7 @@ public class gui
                     {" 9. Stunde", null, null, null, null, null},
                     {" 10. Stunde", null, null, null, null, null},
                 },
-                new String[] {
-                    "Leer", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"
-                }
+                new String[] { "Leer", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag" }
             )
         );
         panel_1.add(table_1);
@@ -425,7 +418,6 @@ public class gui
             for(int spalte = 0 ; spalte<5;spalte++)
             {
                 table.setValueAt(a[spalte][zeile],zeile+1,spalte+1);
-
             }
         }
     }
@@ -433,24 +425,24 @@ public class gui
     public void RaumTabelleUpdaten(Object[][] a)
     {
         räume = a;
-        for(int zeile = 0; zeile<11; zeile++)
+        for(int zeile = 0; zeile < 11; zeile++)
         {
-            for(int spalte = 0 ; spalte<5;spalte++)
+            for(int spalte = 0; spalte < 5; spalte++)
             {
-                table_1.setValueAt(a[spalte][zeile],zeile+1,spalte+1);
-
+                table_1.setValueAt(a[spalte][zeile], zeile+1, spalte+1);
             }
         }
     }
 
-    private void initialize_login() {
-        try{
-            mv=new MV();
+    private void initialize_login() 
+    {
+        try
+        {
+            mv = new MV();
         }
         catch(Exception ex)
         {
-            JOptionPane.showMessageDialog(null, ex.toString(), "Error",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         JFrame frmLogin = new JFrame();
         frmLogin.setTitle("Login");
@@ -479,14 +471,17 @@ public class gui
 
         JButton btnNewButton = new JButton("Login");
         btnNewButton.setActionCommand("Login");
-        btnNewButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent arg0) {
-                    if(textField.getText()!=null && textField_1.getText()!=null)
+        btnNewButton.addActionListener(new ActionListener() 
+            {
+                public void actionPerformed(ActionEvent arg0) 
+                {
+                    if(textField.getText() != null && textField_1.getText() != null)
                     {
                         String benutzername = textField.getText();
                         String passwort= textField_1.getText();
-                        try{
-                            if(mv.login(benutzername,passwort)!= 0)
+                        try
+                        {
+                            if(mv.login(benutzername, passwort)!= 0)
                             {
                                 nutzername = benutzername;
                                 initialize();
@@ -495,17 +490,13 @@ public class gui
                             }
                             else
                             {
-                                JOptionPane.showMessageDialog(null, "Falscher Nutzer oder Falsches Passwort", "Error",
-                                    JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Falscher Nutzer oder Falsches Passwort", "Error", JOptionPane.ERROR_MESSAGE);
                             }
-
                         }
                         catch(Exception e)
                         {
-                            JOptionPane.showMessageDialog(null, e, "Error",
-                                JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, e, "Error", JOptionPane.ERROR_MESSAGE);
                         }
-
                     }
                 }
             });
