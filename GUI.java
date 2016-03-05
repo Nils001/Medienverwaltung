@@ -60,7 +60,6 @@ public class GUI
     {
         mv=new MV();
         initialize();
-
     }
 
     /**
@@ -151,10 +150,10 @@ public class GUI
         comboBox_2.addItem(2016);
         comboBox_2.addItem(2017);
         comboBox_2.addItem(2015);
-        
-       JComboBox comboBox_3 = new JComboBox();
-       // medien combobox
-        
+
+        JComboBox comboBox_3 = new JComboBox();
+        // medien combobox
+
         comboBox_3.setBounds(259, 36, 100, 20);
         panel.add(comboBox_3);
         String[][] a = mv.getMedien();
@@ -162,7 +161,6 @@ public class GUI
         {
             comboBox_3.addItem(a[i][0]);
         }
-
 
         JButton btnSuchen = new JButton("Suchen");
         btnSuchen.addActionListener(new ActionListener() 
@@ -184,7 +182,7 @@ public class GUI
         JLabel lblMedium = new JLabel("Medium");
         lblMedium.setBounds(259, 11, 100, 14);
         panel.add(lblMedium);
-        
+
         JLabel lblAusgewhlt = new JLabel("Ausgew\u00E4hlt:");
         lblAusgewhlt.setBounds(10, 101, 60, 14);
         panel.add(lblAusgewhlt);
@@ -217,9 +215,7 @@ public class GUI
                     {" 9. Stunde", null, null, null, null, null},
                     {" 10. Stunde", null, null, null, null, null},
                 },
-                new String[] {
-                    "Leer", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"
-                }
+                new String[] { "Leer", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag" }
             ) 
             {
                 Class[] columnTypes = new Class[] 
@@ -375,6 +371,5 @@ public class GUI
 
             }
         }
-
     }
 }
