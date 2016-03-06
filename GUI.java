@@ -249,6 +249,25 @@ public class GUI
             {
                 public void actionPerformed(ActionEvent e) 
                 {
+                    for(int spalte=0; spalte<5;spalte++)
+                    {
+                        for(int zeile=0;zeile<10;spalte++ )
+                        {
+                            String tabelle = (String) table.getValueAt(zeile+1,spalte+1);
+                            String tabelleLowerCase = tabelle.toLowerCase();
+                            String vorher  = (String) medien[spalte][1];
+                            String datum = (String) table.getValueAt(zeile+1,spalte+1);
+                            String medienName = (String) comboBox_3.getSelectedItem();
+                            String Stunde = String.valueOf(zeile+1);
+                            if(tabelleLowerCase.equals(nutzername))
+                            {
+                                if(!tabelleLowerCase.equals(vorher) && vorher == null)
+                                {                    
+                                    mv.set(nutzername,medienName,datum,Stunde);
+                                }
+                            }
+                        }
+                    }
 
                 }
             });
@@ -483,7 +502,8 @@ public class GUI
                         {
                             if(mv.login(benutzername, passwort)!= 0)
                             {
-                                nutzername = benutzername;
+                                String h = nutzername.toLowerCase();
+                                h = benutzername;
                                 initialize();
                                 frame.setVisible(true);
                                 frmLogin.setVisible(false);
@@ -503,5 +523,12 @@ public class GUI
         btnNewButton.setBounds(10, 132, 174, 23);
         frmLogin.getContentPane().add(btnNewButton);
         frmLogin.setVisible(true);
+    }
+
+   
+
+    public void unterschied_raum()
+    {
+
     }
 }
