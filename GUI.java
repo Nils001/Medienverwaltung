@@ -106,6 +106,13 @@ public class GUI
 
         JMenuItem mntmAbmelden = new JMenuItem("Abmelden");
         mnBenutzer.add(mntmAbmelden);
+        mntmAbmelden.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+                    frame.setVisible(false); //you can't see me!
+                    frame.dispose(); //Destroy the JFrame object
+                    initialize_login();
+                }
+            });
 
         JMenu mnHilfe = new JMenu("Hilfe");
         menuBar.add(mnHilfe);
