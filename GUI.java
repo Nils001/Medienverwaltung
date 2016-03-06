@@ -251,7 +251,7 @@ public class GUI
                 {
                     for(int spalte=0; spalte<5;spalte++)
                     {
-                        for(int zeile=0;zeile<10;zeile++ )
+                        for(int zeile=1;zeile<11;zeile++ )
                         {
                             String tabelle = (String) table.getValueAt(zeile+1,spalte+1);
                             if (tabelle != null)
@@ -274,7 +274,6 @@ public class GUI
                             }
                         }
                     }
-
                 }
             });
         btnBuchen.setBounds(10, 296, 160, 23);
@@ -285,6 +284,34 @@ public class GUI
             {
                 public void actionPerformed(ActionEvent e) 
                 {
+                    for(int spalte=0; spalte<5;spalte++)
+                    {
+                        for(int zeile=1;zeile<11;zeile++ )
+                        {
+                            String tabelle = (String) table.getValueAt(zeile+1,spalte+1);
+                            if (tabelle != null && !tabelle.equals(nutzername))
+                            {
+                                if (medien[spalte][zeile] != null)
+                                {
+                                    String vorher  = (String) medien[spalte][zeile];
+                                    if (vorher != null)
+                                    {
+                                        vorher = vorher.toLowerCase();
+                                        String datum = (String) medien[spalte][0];
+                                        String medienName = (String) comboBox_3.getSelectedItem();
+                                        String Stunde = String.valueOf(zeile);
+                                        if(vorher.equals(nutzername))
+                                        {
+                                            //if(!tabelleLowerCase.equals(vorher) && vorher == null)
+                                            //{   
+                                            mv.unset(nutzername,medienName,datum,Stunde);
+                                            //}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             });
         btnEntfernen.setBounds(199, 296, 160, 23);
@@ -419,6 +446,31 @@ public class GUI
             {
                 public void actionPerformed(ActionEvent e) 
                 {
+                    for(int spalte=0; spalte<5;spalte++)
+                    {
+                        for(int zeile=1;zeile<11;zeile++ )
+                        {
+                            String tabelle = (String) table.getValueAt(zeile+1,spalte+1);
+                            if (tabelle != null)
+                            {
+                                String tabelleLowerCase = tabelle.toLowerCase();
+                                if (medien[spalte][zeile] == null)
+                                {
+                                    String vorher  = (String) medien[spalte][zeile];
+                                    String datum = (String) medien[spalte][0];
+                                    String medienName = (String) comboBox_3.getSelectedItem();
+                                    String Stunde = String.valueOf(zeile);
+                                    if(tabelleLowerCase.equals(nutzername))
+                                    {
+                                        //if(!tabelleLowerCase.equals(vorher) && vorher == null)
+                                        //{                    
+                                        mv.set(nutzername,medienName,datum,Stunde);
+                                        //}
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             });
         button_1.setBounds(10, 296, 160, 23);
@@ -429,6 +481,34 @@ public class GUI
             {
                 public void actionPerformed(ActionEvent e) 
                 {
+                    for(int spalte=0; spalte<5;spalte++)
+                    {
+                        for(int zeile=1;zeile<11;zeile++ )
+                        {
+                            String tabelle = (String) table.getValueAt(zeile+1,spalte+1);
+                            if (tabelle != null && !tabelle.equals(nutzername))
+                            {
+                                if (medien[spalte][zeile] != null)
+                                {
+                                    String vorher  = (String) medien[spalte][zeile];
+                                    if (vorher != null)
+                                    {
+                                        vorher = vorher.toLowerCase();
+                                        String datum = (String) medien[spalte][0];
+                                        String medienName = (String) comboBox_3.getSelectedItem();
+                                        String Stunde = String.valueOf(zeile);
+                                        if(vorher.equals(nutzername))
+                                        {
+                                            //if(!tabelleLowerCase.equals(vorher) && vorher == null)
+                                            //{   
+                                            mv.unset(nutzername,medienName,datum,Stunde);
+                                            //}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             });
         button_2.setBounds(199, 296, 160, 23);

@@ -101,9 +101,18 @@ public class MV
             {
                 String medienID = mediumToID(nameM);
                 String userID = nameToID(nameU);
+
                 dbv.connect();
-                dbv.verbindung2("INSERT INTO verwaltung VALUES (NULL, '"+userID+"', '"+medienID+"', '"+datum+"', '"+stunde+"')");
+                ResultSet rs = dbv.verbindung("SELECT * FROM verwaltung WHERE UserID = '"+userID+"' AND MedienID = '"+medienID+"' AND Datum = '"+datum+"' AND Stunde = '"+stunde+"'"); //funktioniert
+                String[][] a = rsToArray(rs);
                 dbv.close();
+
+                if (a.length == 0)
+                {
+                    dbv.connect();
+                    dbv.verbindung2("INSERT INTO verwaltung VALUES (NULL, '"+userID+"', '"+medienID+"', '"+datum+"', '"+stunde+"')");
+                    dbv.close();
+                }
             }
             catch (Exception e)
             {
@@ -112,15 +121,16 @@ public class MV
         }
     }
 
-    public void unset(String userID, String name, String datum, String stunde)
+    public void unset(String nameU, String nameM, String datum, String stunde)
     {
         if (status == 10 || status == 11)
         {
             try
             {
-                String medienID = mediumToID(name);
+                String medienID = mediumToID(nameM);
+                String userID = nameToID(nameU);
                 dbv.connect();
-                dbv.verbindung2("DELETE FROM verwaltung WHERE UserID = '"+userID+"' AND MedienID = '"+medienID+"' AND Datum = '"+datum+"' Stunde = '"+stunde+"'");
+                dbv.verbindung2("DELETE FROM verwaltung WHERE UserID = '"+userID+"' AND MedienID = '"+medienID+"' AND Datum = '"+datum+"' AND Stunde = '"+stunde+"'");
                 dbv.close();
             }
             catch (Exception e)
