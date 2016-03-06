@@ -92,6 +92,26 @@ public class MV
         }
         return null;
     }
+    
+    public String[][] getUser() throws Exception
+    {
+        if (status == 10 || status == 11)
+        {
+            try
+            {
+                dbv.connect();
+                ResultSet rs = dbv.verbindung("SELECT Name FROM user"); //funktioniert
+                String[][] a = rsToArray(rs);
+                dbv.close();
+                return a;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        return null;
+    }
 
     public void set(String nameU, String nameM, String datum, String stunde)
     {
