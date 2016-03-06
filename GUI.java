@@ -262,7 +262,7 @@ public class GUI
                                     String vorher  = (String) medien[spalte][zeile];
                                     String datum = (String) medien[spalte][0];
                                     String medienName = (String) comboBox_3.getSelectedItem();
-                                    String Stunde = String.valueOf(zeile+1);
+                                    String Stunde = String.valueOf(zeile);
                                     if(tabelleLowerCase.equals(nutzername))
                                     {
                                         //if(!tabelleLowerCase.equals(vorher) && vorher == null)
