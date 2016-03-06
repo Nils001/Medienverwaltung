@@ -202,16 +202,20 @@ public class GUI
         mnMedium.add(mntmMediumLschen);
 
         JMenuItem mntmAlleMedien = new JMenuItem("Alle Medien");
-        mntmAlleMedien.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        mntmAlleMedien.addActionListener(new ActionListener() 
+            {
+                public void actionPerformed(ActionEvent e) 
+                {
 
                     String[] list = {"Raum", "Medium"};
                     JComboBox jcb = new JComboBox(list);
                     jcb.setEditable(false);
                     JOptionPane.showMessageDialog( null, jcb, "Bitte Typ auswählen", JOptionPane.QUESTION_MESSAGE);
                     String typ = (String) jcb.getSelectedItem();
-                    if(typ.equals("Medien"))
-                        try {
+                    if (typ.equals("Medien"))
+                    {
+                        try 
+                        {
                             String[][] a = mv.getMedien();
                             for(int i=0;i<a.length;i++)
                             {
@@ -224,9 +228,12 @@ public class GUI
 
                             JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
-                    else{
+                    }
+                    else
+                    {
 
-                         try {
+                        try 
+                        {
                             String[][] a = mv.getRaum();
                             for(int i=0;i<a.length;i++)
                             {
@@ -240,10 +247,11 @@ public class GUI
                             JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }
-                });
-                mnMedium.add(mntmAlleMedien);
-                mntmMediumLschen.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
+                }
+            });
+        mnMedium.add(mntmAlleMedien);
+        mntmMediumLschen.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
                     String s = (String)JOptionPane.showInputDialog(
                             frame,
                             "Name des Mediums angeben",
@@ -259,7 +267,8 @@ public class GUI
                 }
 
             });
-        mntmMediumHinzufgen.addActionListener(new ActionListener() {
+        mntmMediumHinzufgen.addActionListener(new 
+            ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     String name = (String)JOptionPane.showInputDialog(
                             frame,
@@ -414,7 +423,9 @@ public class GUI
                     return columnTypes[columnIndex];
                 }
             });
-        table.setBorder(new LineBorder(new Color(0, 0, 0)));
+        table.setBorder(new LineBorder(new 
+
+                Color(0, 0, 0)));
         table.setBounds(381, 11, 518, 300);
         panel.add(table);
 
@@ -593,7 +604,9 @@ public class GUI
         table_1.setRowMargin(3);
         table_1.setRowHeight(25);
         table_1.setFillsViewportHeight(true);
-        table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+        table_1.setBorder(new LineBorder(new 
+
+                Color(0, 0, 0)));
         table_1.setBounds(381, 11, 518, 300);
         table_1.setModel(new DefaultTableModel(
                 new Object[][] {
