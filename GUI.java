@@ -122,8 +122,39 @@ public class GUI
         {
             menuBar.add(mnAdmin);
         }
+        menuBar.add(mnAdmin);
+
+        JMenu mnUser = new JMenu("User");
+        mnAdmin.add(mnUser);
 
         JMenuItem mntmUserHinzufgen = new JMenuItem("User Hinzuf\u00FCgen");
+        mnUser.add(mntmUserHinzufgen);
+
+        JMenuItem mntmUserLschen = new JMenuItem("User L\u00F6schen");
+        mnUser.add(mntmUserLschen);
+
+        JMenuItem mntmAlleUser = new JMenuItem("Alle User");
+        mntmAlleUser.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                }
+            });
+        mnUser.add(mntmAlleUser);
+        mntmUserLschen.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String s = (String)JOptionPane.showInputDialog(
+                            frame,
+                            "Name des Benutzers angeben",
+                            "Benutzer löschen",
+                            JOptionPane.PLAIN_MESSAGE);
+                    try{
+                        mv.removeUser(s);
+                    }
+                    catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
         mntmUserHinzufgen.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     String name = (String)JOptionPane.showInputDialog(
@@ -160,28 +191,74 @@ public class GUI
                     }
                 }
             });
-        mnAdmin.add(mntmUserHinzufgen);
 
-        JMenuItem mntmUserLschen = new JMenuItem("User L\u00F6schen");
-        mntmUserLschen.addActionListener(new ActionListener() {
+        JMenu mnMedium = new JMenu("Medium");
+        mnAdmin.add(mnMedium);
+
+        JMenuItem mntmMediumHinzufgen = new JMenuItem("Medium Hinzuf\u00FCgen");
+        mnMedium.add(mntmMediumHinzufgen);
+
+        JMenuItem mntmMediumLschen = new JMenuItem("Medium L\u00F6schen");
+        mnMedium.add(mntmMediumLschen);
+
+        JMenuItem mntmAlleMedien = new JMenuItem("Alle Medien");
+        mntmAlleMedien.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+
+                    String[] list = {"Raum", "Medium"};
+                    JComboBox jcb = new JComboBox(list);
+                    jcb.setEditable(false);
+                    JOptionPane.showMessageDialog( null, jcb, "Bitte Typ auswählen", JOptionPane.QUESTION_MESSAGE);
+                    String typ = (String) jcb.getSelectedItem();
+                    if(typ.equals("Medien"))
+                        try {
+                            String[][] a = mv.getMedien();
+                            for(int i=0;i<a.length;i++)
+                            {
+                                String rs = a[i][0]+"\n";
+                            }
+                            JOptionPane.showMessageDialog(frame, rs);
+                        }
+                        catch(Exception ex)
+                        {
+
+                            JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    else{
+
+                         try {
+                            String[][] a = mv.getRaum();
+                            for(int i=0;i<a.length;i++)
+                            {
+                                String rs = a[i][0]+"\n";
+                            }
+                            JOptionPane.showMessageDialog(frame, rs);
+                        }
+                        catch(Exception ex)
+                        {
+
+                            JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                });
+                mnMedium.add(mntmAlleMedien);
+                mntmMediumLschen.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
                     String s = (String)JOptionPane.showInputDialog(
                             frame,
-                            "Name des Benutzers angeben",
-                            "Benutzer löschen",
+                            "Name des Mediums angeben",
+                            "Medium löschen",
                             JOptionPane.PLAIN_MESSAGE);
                     try{
-                        mv.removeUser(s);
+                        mv.removeMedium(s);
                     }
                     catch(Exception ex)
                     {
                         JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-            });
-        mnAdmin.add(mntmUserLschen);
 
-        JMenuItem mntmMediumHinzufgen = new JMenuItem("Medium Hinzuf\u00FCgen");
+            });
         mntmMediumHinzufgen.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     String name = (String)JOptionPane.showInputDialog(
@@ -204,27 +281,8 @@ public class GUI
                     }
                 }
             });
-        mnAdmin.add(mntmMediumHinzufgen);
 
-        JMenuItem mntmMediumLschen = new JMenuItem("Medium L\u00F6schen");
-        mntmMediumLschen.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    String s = (String)JOptionPane.showInputDialog(
-                            frame,
-                            "Name des Mediums angeben",
-                            "Medium löschen",
-                            JOptionPane.PLAIN_MESSAGE);
-                    try{
-                        mv.removeMedium(s);
-                    }
-                    catch(Exception ex)
-                    {
-                        JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-
-            });
-        mnAdmin.add(mntmMediumLschen);
+        frame.getContentPane().setLayout(null);
 
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.setBounds(10, 11, 914, 358);
