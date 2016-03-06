@@ -350,13 +350,13 @@ public class MV
     {
         Object[][] zeitplan = new Object[5][11];
 
-        for (int e = 0; e < 5; e++)
+        /*for (int e = 0; e < 5; e++)
         {
             for (int f = 1; f < 11; f++)
             {
                 zeitplan[e][f] = false;
             }
-        }
+        }*/
 
         zeitplan[0][0] = date;
         for (int i = 1; i < 5; i++)
