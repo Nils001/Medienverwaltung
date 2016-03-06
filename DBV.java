@@ -71,6 +71,19 @@ public class DBV
             throw sqle;
         }
     }
+    
+        public void verbindung2(String select) throws Exception
+    {
+        try 
+        {
+            Statement st = conn.createStatement();
+            st.execute(select);
+        }
+        catch (SQLException sqle)
+        {
+            throw sqle;
+        }
+    }
 
     public void ausgabe()
     {

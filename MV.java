@@ -93,15 +93,16 @@ public class MV
         return null;
     }
 
-    public void set(String userID, String name, String datum, String stunde)
+    public void set(String nameU, String nameM, String datum, String stunde)
     {
         if (status == 10 || status == 11)
         {
             try
             {
-                String medienID = mediumToID(name);
+                String medienID = mediumToID(nameM);
+                String userID = nameToID(nameU);
                 dbv.connect();
-                ResultSet rs = dbv.verbindung("INSERT INTO 'mv'.'verwaltung' (`ID`, `UserID`, `MedienID`, `Datum`, `Stunde`, `timestamp`) VALUES ('NULL', '"+userID+"', '"+medienID+"', '"+datum+"', '"+stunde+"', 'timestamp')");
+                dbv.verbindung2("INSERT INTO verwaltung VALUES (NULL, '"+userID+"', '"+medienID+"', '"+datum+"', '"+stunde+"', timestamp)");
                 dbv.close();
             }
             catch (Exception e)
@@ -119,7 +120,7 @@ public class MV
             {
                 String medienID = mediumToID(name);
                 dbv.connect();
-                ResultSet rs = dbv.verbindung("DELETE FROM 'mv'.'verwaltung' WHERE UserID = '"+userID+"' AND MedienID = '"+medienID+"' AND Datum = '"+datum+"' Stunde = '"+stunde+"'");
+                dbv.verbindung2("DELETE FROM verwaltung WHERE UserID = '"+userID+"' AND MedienID = '"+medienID+"' AND Datum = '"+datum+"' Stunde = '"+stunde+"'");
                 dbv.close();
             }
             catch (Exception e)
@@ -131,6 +132,8 @@ public class MV
 
     public int login(String name, String passwort) throws Exception
     {
+        //name = "fritsch";
+        //passwort = "hallo";
         try
         {
             dbv.connect();
@@ -139,8 +142,8 @@ public class MV
             dbv.close();
             if (a.length == 0)
             {
-                status = 00;
-                return 00;
+                status = 0;
+                return 0;
             }
             else
             {
@@ -159,21 +162,17 @@ public class MV
                 }
                 else
                 {
-                    status = 00;
-                    return 00;
+                    status = 0;
+                    return 0;
                 }
             }
         }
         catch (Exception e)
         {
-            
-            
+
         }
-        
-        return 00;
+        return 0;
     }
-
-
 
     public void logout()
     {
@@ -187,7 +186,7 @@ public class MV
             try
             {
                 dbv.connect();
-                ResultSet rs = dbv.verbindung("INSERT INTO 'mv'.'medien' (`ID`, `Name`, `Typ`) VALUES ('NULL', '"+name+"', '"+typ+"')");
+                dbv.verbindung2("INSERT INTO medien VALUES (NULL, '"+name+"', '"+typ+"')");
                 dbv.close();
             }
             catch (Exception e)
@@ -204,7 +203,7 @@ public class MV
             try
             {
                 dbv.connect();
-                ResultSet rs = dbv.verbindung("DELETE FROM 'mv'.'medien' WHERE Name = '"+name+"'");
+                dbv.verbindung2("DELETE FROM medien WHERE Name = '"+name+"'");
                 dbv.close();
             }
             catch (Exception e)
@@ -221,7 +220,7 @@ public class MV
             try
             {
                 dbv.connect();
-                ResultSet rs = dbv.verbindung("INSERT INTO 'mv'.'user' ('ID', 'Name', 'Passwort', 'Admin') VALUES ('NULL', '"+name+"', '"+passwort+"', '"+admin+"')");
+                dbv.verbindung2("INSERT INTO user VALUES (NULL, '"+name+"', '"+passwort+"', '"+admin+"')"); //('ID', 'Name', 'Passwort', 'Admin')
                 dbv.close();
             }
             catch (Exception e)
@@ -238,7 +237,7 @@ public class MV
             try
             {
                 dbv.connect();
-                ResultSet rs = dbv.verbindung("DELETE FROM 'mv'.'user' WHERE Name = '"+name+"'");
+                dbv.verbindung2("DELETE FROM user WHERE Name = '"+name+"'");
                 dbv.close();
             }
             catch (Exception e)
@@ -352,10 +351,10 @@ public class MV
 
         /*for (int e = 0; e < 5; e++)
         {
-            for (int f = 1; f < 11; f++)
-            {
-                zeitplan[e][f] = false;
-            }
+        for (int f = 1; f < 11; f++)
+        {
+        zeitplan[e][f] = false;
+        }
         }*/
 
         zeitplan[0][0] = date;
@@ -401,7 +400,7 @@ public class MV
         return null;
     }
 
-    private String NameToID(String name) throws ParseException
+    private String nameToID(String name) throws ParseException
     {
         try
         {
