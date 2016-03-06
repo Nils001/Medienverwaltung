@@ -251,12 +251,12 @@ public class GUI
                 {
                     for(int spalte=0; spalte<5;spalte++)
                     {
-                        for(int zeile=0;zeile<10;spalte++ )
+                        for(int zeile=0;zeile<10;zeile++ )
                         {
                             String tabelle = (String) table.getValueAt(zeile+1,spalte+1);
                             String tabelleLowerCase = tabelle.toLowerCase();
-                            String vorher  = (String) medien[spalte][1];
-                            String datum = (String) table.getValueAt(zeile+1,spalte+1);
+                            String vorher  = (String) medien[spalte][zeile];
+                            String datum = (String) medien[spalte][1];
                             String medienName = (String) comboBox_3.getSelectedItem();
                             String Stunde = String.valueOf(zeile+1);
                             if(tabelleLowerCase.equals(nutzername))
