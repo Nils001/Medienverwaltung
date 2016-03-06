@@ -136,6 +136,21 @@ public class GUI
         JMenuItem mntmAlleUser = new JMenuItem("Alle User");
         mntmAlleUser.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    try 
+                    {
+                        String[][] a = mv.getUser();
+                        String rs = "";
+                        for(int i=0;i<a.length;i++)
+                        {
+                            rs =rs+ a[i][0]+"\n";
+                        }
+                        JOptionPane.showMessageDialog(frame, rs);
+                    }
+                    catch(Exception ex)
+                    {
+
+                        JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             });
         mnUser.add(mntmAlleUser);
@@ -217,9 +232,10 @@ public class GUI
                         try 
                         {
                             String[][] a = mv.getMedien();
+                            String rs = "";
                             for(int i=0;i<a.length;i++)
                             {
-                                String rs = a[i][0]+"\n";
+                                rs =rs+ a[i][0]+"\n";
                             }
                             JOptionPane.showMessageDialog(frame, rs);
                         }
@@ -234,10 +250,11 @@ public class GUI
 
                         try 
                         {
+                            String rs="";
                             String[][] a = mv.getRaum();
                             for(int i=0;i<a.length;i++)
                             {
-                                String rs = a[i][0]+"\n";
+                                rs = rs+ a[i][0]+"\n";
                             }
                             JOptionPane.showMessageDialog(frame, rs);
                         }
@@ -267,7 +284,7 @@ public class GUI
                 }
 
             });
-        mntmMediumHinzufgen.addActionListener(new 
+        mntmMediumHinzufgen.addActionListener(new 
             ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     String name = (String)JOptionPane.showInputDialog(
@@ -423,7 +440,7 @@ public class GUI
                     return columnTypes[columnIndex];
                 }
             });
-        table.setBorder(new LineBorder(new 
+        table.setBorder(new LineBorder(new 
 
                 Color(0, 0, 0)));
         table.setBounds(381, 11, 518, 300);
@@ -604,7 +621,7 @@ public class GUI
         table_1.setRowMargin(3);
         table_1.setRowHeight(25);
         table_1.setFillsViewportHeight(true);
-        table_1.setBorder(new LineBorder(new 
+        table_1.setBorder(new LineBorder(new 
 
                 Color(0, 0, 0)));
         table_1.setBounds(381, 11, 518, 300);
