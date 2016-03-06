@@ -35,7 +35,7 @@ public class GUI
     private Object[][] medien;
     private Object[][] räume;
     private String nutzername;
-
+    private Boolean adminstate;
     /**
      * Launch the application.
      */
@@ -71,6 +71,7 @@ public class GUI
      */
     private void initialize() 
     {
+
         frame = new JFrame();
         frame.setResizable(false);
         frame.setBounds(100, 100, 950, 440);
@@ -100,7 +101,7 @@ public class GUI
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
 
-        JMenu mnBenutzer = new JMenu("Benutzer");
+        JMenu mnBenutzer = new JMenu(nutzername);
         menuBar.add(mnBenutzer);
 
         JMenuItem mntmAbmelden = new JMenuItem("Abmelden");
@@ -109,6 +110,114 @@ public class GUI
         JMenu mnHilfe = new JMenu("Hilfe");
         menuBar.add(mnHilfe);
         frame.getContentPane().setLayout(null);
+        JMenu mnAdmin = new JMenu("Admin");
+        if(adminstate==true)
+        {
+            menuBar.add(mnAdmin);
+        }
+
+        JMenuItem mntmUserHinzufgen = new JMenuItem("User Hinzuf\u00FCgen");
+        mntmUserHinzufgen.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String name = (String)JOptionPane.showInputDialog(
+                            frame,
+                            "Name angeben",
+                            "User hinzufügen",
+                            JOptionPane.PLAIN_MESSAGE);
+                    String passwort = (String)JOptionPane.showInputDialog(
+                            frame,
+                            "Passwort angeben",
+                            "User hinzufügen",
+                            JOptionPane.PLAIN_MESSAGE);
+
+                    String[] list = {"Ja", "Nein"};
+                    JComboBox jcb = new JComboBox(list);
+                    jcb.setEditable(false);
+                    JOptionPane.showMessageDialog( null, jcb, "Bitte Adminstatus auswählen", JOptionPane.QUESTION_MESSAGE);
+                    String admin = (String) jcb.getSelectedItem();
+                    String adminz;
+                    if(admin.equals("Ja"))
+                    {
+                        adminz = "1";
+                    }
+                    else
+                    {
+                        adminz = "0";
+                    }
+                    try{
+                        mv.createUser(name, passwort,adminz);
+                    }
+                    catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
+        mnAdmin.add(mntmUserHinzufgen);
+
+        JMenuItem mntmUserLschen = new JMenuItem("User L\u00F6schen");
+        mntmUserLschen.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String s = (String)JOptionPane.showInputDialog(
+                            frame,
+                            "Name des Benutzers angeben",
+                            "Benutzer löschen",
+                            JOptionPane.PLAIN_MESSAGE);
+                    try{
+                        mv.removeUser(s);
+                    }
+                    catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
+        mnAdmin.add(mntmUserLschen);
+
+        JMenuItem mntmMediumHinzufgen = new JMenuItem("Medium Hinzuf\u00FCgen");
+        mntmMediumHinzufgen.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String name = (String)JOptionPane.showInputDialog(
+                            frame,
+                            "Name angeben",
+                            "Medium hinzufügen",
+                            JOptionPane.PLAIN_MESSAGE);
+
+                    String[] list = {"Raum", "Medium"};
+                    JComboBox jcb = new JComboBox(list);
+                    jcb.setEditable(false);
+                    JOptionPane.showMessageDialog( null, jcb, "Bitte Typ auswählen", JOptionPane.QUESTION_MESSAGE);
+                    String typ = (String) jcb.getSelectedItem();
+                    try{
+                        mv.createMedium(name,typ);
+                    }
+                    catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
+        mnAdmin.add(mntmMediumHinzufgen);
+
+        JMenuItem mntmMediumLschen = new JMenuItem("Medium L\u00F6schen");
+        mntmMediumLschen.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String s = (String)JOptionPane.showInputDialog(
+                            frame,
+                            "Name des Mediums angeben",
+                            "Medium löschen",
+                            JOptionPane.PLAIN_MESSAGE);
+                    try{
+                        mv.removeMedium(s);
+                    }
+                    catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+            });
+        mnAdmin.add(mntmMediumLschen);
 
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.setBounds(10, 11, 914, 358);
@@ -541,6 +650,7 @@ public class GUI
 
     private void initialize_login() 
     {
+        adminstate = false;
         try
         {
             mv = new MV();
@@ -586,8 +696,13 @@ public class GUI
                         String passwort= textField_1.getText();
                         try
                         {
-                            if(mv.login(benutzername, passwort)!= 0)
+                            int admin = mv.login(benutzername, passwort);
+                            if(admin !=0)
                             {
+                                if (admin == 11)
+                                {
+                                    adminstate=true;
+                                }
                                 String h = benutzername.toLowerCase();
                                 nutzername = h;
                                 initialize();
