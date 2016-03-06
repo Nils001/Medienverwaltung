@@ -36,6 +36,7 @@ public class GUI
     private Object[][] räume;
     private String nutzername;
     private Boolean adminstate;
+
     /**
      * Launch the application.
      */
@@ -51,8 +52,7 @@ public class GUI
                     } catch (Exception e) 
                     {
                         e.printStackTrace();
-                        JOptionPane.showMessageDialog(null, e.toString(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             });
@@ -71,7 +71,6 @@ public class GUI
      */
     private void initialize() 
     {
-
         frame = new JFrame();
         frame.setResizable(false);
         frame.setBounds(100, 100, 950, 440);
@@ -106,8 +105,10 @@ public class GUI
 
         JMenuItem mntmAbmelden = new JMenuItem("Abmelden");
         mnBenutzer.add(mntmAbmelden);
-        mntmAbmelden.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent arg0) {
+        mntmAbmelden.addActionListener(new ActionListener() 
+            {
+                public void actionPerformed(ActionEvent arg0) 
+                {
                     frame.setVisible(false); //you can't see me!
                     frame.dispose(); //Destroy the JFrame object
                     initialize_login();
@@ -134,8 +135,10 @@ public class GUI
         mnUser.add(mntmUserLschen);
 
         JMenuItem mntmAlleUser = new JMenuItem("Alle User");
-        mntmAlleUser.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        mntmAlleUser.addActionListener(new ActionListener() 
+            {
+                public void actionPerformed(ActionEvent e) 
+                {
                     try 
                     {
                         String[][] a = mv.getUser();
@@ -148,20 +151,23 @@ public class GUI
                     }
                     catch(Exception ex)
                     {
-
                         JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             });
         mnUser.add(mntmAlleUser);
-        mntmUserLschen.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+
+        mntmUserLschen.addActionListener(new ActionListener() 
+            {
+                public void actionPerformed(ActionEvent e) 
+                {
                     String s = (String)JOptionPane.showInputDialog(
                             frame,
                             "Name des Benutzers angeben",
                             "Benutzer löschen",
                             JOptionPane.PLAIN_MESSAGE);
-                    try{
+                    try
+                    {
                         mv.removeUser(s);
                     }
                     catch(Exception ex)
@@ -170,13 +176,16 @@ public class GUI
                     }
                 }
             });
-        mntmUserHinzufgen.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        mntmUserHinzufgen.addActionListener(new ActionListener() 
+            {
+                public void actionPerformed(ActionEvent e) 
+                {
                     String name = (String)JOptionPane.showInputDialog(
                             frame,
                             "Name angeben",
                             "User hinzufügen",
                             JOptionPane.PLAIN_MESSAGE);
+
                     String passwort = (String)JOptionPane.showInputDialog(
                             frame,
                             "Passwort angeben",
@@ -197,7 +206,8 @@ public class GUI
                     {
                         adminz = "0";
                     }
-                    try{
+                    try
+                    {
                         mv.createUser(name, passwort,adminz);
                     }
                     catch(Exception ex)
@@ -221,60 +231,61 @@ public class GUI
             {
                 public void actionPerformed(ActionEvent e) 
                 {
-
                     String[] list = {"Raum", "Medium"};
                     JComboBox jcb = new JComboBox(list);
                     jcb.setEditable(false);
                     JOptionPane.showMessageDialog( null, jcb, "Bitte Typ auswählen", JOptionPane.QUESTION_MESSAGE);
                     String typ = (String) jcb.getSelectedItem();
+
                     if (typ.equals("Medien"))
                     {
                         try 
                         {
                             String[][] a = mv.getMedien();
                             String rs = "";
-                            for(int i=0;i<a.length;i++)
+                            for(int i = 0; i < a.length; i++)
                             {
-                                rs =rs+ a[i][0]+"\n";
+                                rs = rs + a[i][0]+"\n";
                             }
                             JOptionPane.showMessageDialog(frame, rs);
                         }
                         catch(Exception ex)
                         {
-
                             JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }
                     else
                     {
-
                         try 
                         {
                             String rs="";
                             String[][] a = mv.getRaum();
-                            for(int i=0;i<a.length;i++)
+                            for(int i = 0; i < a.length; i++)
                             {
-                                rs = rs+ a[i][0]+"\n";
-                            }
+                                rs = rs + a[i][0]+"\n";
+                            } 
                             JOptionPane.showMessageDialog(frame, rs);
                         }
                         catch(Exception ex)
                         {
-
                             JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }
                 }
             });
         mnMedium.add(mntmAlleMedien);
-        mntmMediumLschen.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+
+        mntmMediumLschen.addActionListener(new ActionListener() 
+            {
+                public void actionPerformed(ActionEvent e) 
+                {
                     String s = (String)JOptionPane.showInputDialog(
                             frame,
                             "Name des Mediums angeben",
                             "Medium löschen",
                             JOptionPane.PLAIN_MESSAGE);
-                    try{
+                    try
+                    {
                         mv.removeMedium(s);
                     }
                     catch(Exception ex)
@@ -282,11 +293,13 @@ public class GUI
                         JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-
             });
+
         mntmMediumHinzufgen.addActionListener(new 
-            ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+            ActionListener() 
+            {
+                public void actionPerformed(ActionEvent e) 
+                {
                     String name = (String)JOptionPane.showInputDialog(
                             frame,
                             "Name angeben",
@@ -298,7 +311,8 @@ public class GUI
                     jcb.setEditable(false);
                     JOptionPane.showMessageDialog( null, jcb, "Bitte Typ auswählen", JOptionPane.QUESTION_MESSAGE);
                     String typ = (String) jcb.getSelectedItem();
-                    try{
+                    try
+                    {
                         mv.createMedium(name,typ);
                     }
                     catch(Exception ex)
@@ -337,7 +351,7 @@ public class GUI
         JComboBox comboBox = new JComboBox();
         comboBox.setBounds(66, 36, 66, 20);
         panel.add(comboBox);
-        for(int i = 1;i<13;i++)
+        for(int i = 1; i < 13; i++)
         {
             comboBox.addItem(i);
         }
@@ -346,7 +360,7 @@ public class GUI
         JComboBox comboBox_1 = new JComboBox();
         comboBox_1.setBounds(10, 36, 40, 20);
         panel.add(comboBox_1);
-        for(int i = 1;i<31;i++)
+        for(int i = 1; i < 31; i++)
         {
             comboBox_1.addItem(i);
         }
@@ -363,9 +377,10 @@ public class GUI
 
         comboBox_3.setBounds(259, 36, 100, 20);
         panel.add(comboBox_3);
-        try{
+        try
+        {
             String[][] a = mv.getMedien();
-            for(int i=0;i<a.length;i++)
+            for(int i = 0; i < a.length; i++)
             {
                 comboBox_3.addItem(a[i][0]);
             }
@@ -383,13 +398,13 @@ public class GUI
                     String datum = "" + comboBox_2.getSelectedItem() + "-" + comboBox.getSelectedItem() + "-" + comboBox_1.getSelectedItem();
                     String medienName = (String) comboBox_3.getSelectedItem();
                     label_1.setText(medienName);
-                    try{
+                    try
+                    {
                         MedienTabelleUpdaten(mv.getBelegung(medienName,datum));
                     }
                     catch(Exception ex)
                     {
-                        JOptionPane.showMessageDialog(null, ex.toString(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, ex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             });
@@ -440,9 +455,7 @@ public class GUI
                     return columnTypes[columnIndex];
                 }
             });
-        table.setBorder(new LineBorder(new 
-
-                Color(0, 0, 0)));
+        table.setBorder(new LineBorder(new Color(0, 0, 0)));
         table.setBounds(381, 11, 518, 300);
         panel.add(table);
 
@@ -467,10 +480,7 @@ public class GUI
                                     String Stunde = String.valueOf(zeile);
                                     if(tabelleLowerCase.equals(nutzername))
                                     {
-                                        //if(!tabelleLowerCase.equals(vorher) && vorher == null)
-                                        //{                    
                                         mv.set(nutzername,medienName,datum,Stunde);
-                                        //}
                                     }
                                 }
                             }
@@ -503,11 +513,8 @@ public class GUI
                                         String medienName = (String) comboBox_3.getSelectedItem();
                                         String Stunde = String.valueOf(zeile);
                                         if(vorher.equals(nutzername))
-                                        {
-                                            //if(!tabelleLowerCase.equals(vorher) && vorher == null)
-                                            //{   
+                                        { 
                                             mv.unset(nutzername,medienName,datum,Stunde);
-                                            //}
                                         }
                                     }
                                 }
@@ -540,7 +547,7 @@ public class GUI
         JComboBox comboBox_4 = new JComboBox();
         comboBox_4.setBounds(66, 36, 66, 20);
         panel_1.add(comboBox_4);
-        for(int i = 1;i<13;i++)
+        for(int i = 1; i < 13; i++)
         {
             comboBox_4.addItem(i);
         }
@@ -549,7 +556,7 @@ public class GUI
         JComboBox comboBox_5 = new JComboBox();
         comboBox_5.setBounds(10, 36, 40, 20);
         panel_1.add(comboBox_5);
-        for(int i = 1;i<31;i++)
+        for(int i = 1; i < 31; i++)
         {
             comboBox_5.addItem(i);
         }
@@ -570,9 +577,10 @@ public class GUI
         JComboBox comboBox_7 = new JComboBox();
         comboBox_7.setBounds(259, 36, 100, 20);
         panel_1.add(comboBox_7);
-        try{
+        try
+        {
             String[][] b = mv.getRaum();
-            for(int i=0;i<b.length;i++)
+            for(int i = 0; i < b.length; i++)
             {
                 comboBox_7.addItem(b[i][0]);
             }
@@ -621,9 +629,7 @@ public class GUI
         table_1.setRowMargin(3);
         table_1.setRowHeight(25);
         table_1.setFillsViewportHeight(true);
-        table_1.setBorder(new LineBorder(new 
-
-                Color(0, 0, 0)));
+        table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
         table_1.setBounds(381, 11, 518, 300);
         table_1.setModel(new DefaultTableModel(
                 new Object[][] {
@@ -650,9 +656,9 @@ public class GUI
             {
                 public void actionPerformed(ActionEvent e) 
                 {
-                    for(int spalte=0; spalte<5;spalte++)
+                    for(int spalte = 0; spalte < 5; spalte++)
                     {
-                        for(int zeile=1;zeile<11;zeile++ )
+                        for(int zeile = 1; zeile < 11; zeile++)
                         {
                             String tabelle = (String) table.getValueAt(zeile+1,spalte+1);
                             if (tabelle != null)
@@ -666,10 +672,7 @@ public class GUI
                                     String Stunde = String.valueOf(zeile);
                                     if(tabelleLowerCase.equals(nutzername))
                                     {
-                                        //if(!tabelleLowerCase.equals(vorher) && vorher == null)
-                                        //{                    
                                         mv.set(nutzername,medienName,datum,Stunde);
-                                        //}
                                     }
                                 }
                             }
@@ -685,9 +688,9 @@ public class GUI
             {
                 public void actionPerformed(ActionEvent e) 
                 {
-                    for(int spalte=0; spalte<5;spalte++)
+                    for(int spalte = 0; spalte < 5; spalte++)
                     {
-                        for(int zeile=1;zeile<11;zeile++ )
+                        for(int zeile = 1;zeile < 11; zeile++)
                         {
                             String tabelle = (String) table.getValueAt(zeile+1,spalte+1);
                             if (tabelle != null && !tabelle.equals(nutzername))
@@ -702,11 +705,8 @@ public class GUI
                                         String medienName = (String) comboBox_3.getSelectedItem();
                                         String Stunde = String.valueOf(zeile);
                                         if(vorher.equals(nutzername))
-                                        {
-                                            //if(!tabelleLowerCase.equals(vorher) && vorher == null)
-                                            //{   
+                                        {  
                                             mv.unset(nutzername,medienName,datum,Stunde);
-                                            //}
                                         }
                                     }
                                 }
@@ -722,9 +722,9 @@ public class GUI
     public void MedienTabelleUpdaten(Object[][] a)
     {
         medien = a;
-        for(int zeile = 0; zeile<11; zeile++)
+        for(int zeile = 0; zeile < 11; zeile++)
         {
-            for(int spalte = 0 ; spalte<5;spalte++)
+            for(int spalte = 0; spalte < 5; spalte++)
             {
                 table.setValueAt(a[spalte][zeile],zeile+1,spalte+1);
             }
@@ -785,14 +785,20 @@ public class GUI
             {
                 public void actionPerformed(ActionEvent arg0) 
                 {
-                    if(textField.getText() != null && textField_1.getText() != null)
+                    if(textField.getText() != null)
                     {
+                        char[] help = textField_1.getPassword();
                         String benutzername = textField.getText();
-                        String passwort= textField_1.getText();
+                        String passwort = "";
+                        for (int i = 0; i < help.length; i++)
+                        {
+                            passwort = passwort + help[i];
+                        }
+
                         try
                         {
                             int admin = mv.login(benutzername, passwort);
-                            if(admin !=0)
+                            if(admin != 0)
                             {
                                 if (admin == 11)
                                 {
@@ -819,10 +825,5 @@ public class GUI
         btnNewButton.setBounds(10, 132, 174, 23);
         frmLogin.getContentPane().add(btnNewButton);
         frmLogin.setVisible(true);
-    }
-
-    public void unterschied_raum()
-    {
-
     }
 }

@@ -20,7 +20,8 @@ public class MV
     {
         name = "";//name = benutzer;
         passwort = "";//passwort = pass;
-        try{
+        try
+        {
             dbv = new DBV(name, passwort);
         }
         catch (Exception e)
@@ -39,7 +40,7 @@ public class MV
             try
             {
                 dbv.connect();
-                ResultSet rs = dbv.verbindung("SELECT * FROM verwaltung WHERE MedienID = "+medienID+" AND Datum BETWEEN '"+date1+"' AND '"+date2+"'");  //funktioniert
+                ResultSet rs = dbv.verbindung("SELECT * FROM verwaltung WHERE MedienID = "+medienID+" AND Datum BETWEEN '"+date1+"' AND '"+date2+"'");
                 String[][] a = rsToArray(rs);
                 Object[][] b = belegungArray(a, date1);
                 dbv.close();
@@ -60,7 +61,7 @@ public class MV
             try
             {
                 dbv.connect();
-                ResultSet rs = dbv.verbindung("SELECT Name FROM medien WHERE Typ LIKE '%Raum'"); //funktioniert
+                ResultSet rs = dbv.verbindung("SELECT Name FROM medien WHERE Typ LIKE '%Raum'");
                 String[][] a = rsToArray(rs);
                 dbv.close();
                 return a;
@@ -80,7 +81,7 @@ public class MV
             try
             {
                 dbv.connect();
-                ResultSet rs = dbv.verbindung("SELECT Name FROM medien WHERE Typ NOT LIKE '%Raum'"); //funktioniert
+                ResultSet rs = dbv.verbindung("SELECT Name FROM medien WHERE Typ NOT LIKE '%Raum'");
                 String[][] a = rsToArray(rs);
                 dbv.close();
                 return a;
@@ -100,7 +101,7 @@ public class MV
             try
             {
                 dbv.connect();
-                ResultSet rs = dbv.verbindung("SELECT Name FROM user"); //funktioniert
+                ResultSet rs = dbv.verbindung("SELECT Name FROM user");
                 String[][] a = rsToArray(rs);
                 dbv.close();
                 return a;
@@ -123,7 +124,7 @@ public class MV
                 String userID = nameToID(nameU);
 
                 dbv.connect();
-                ResultSet rs = dbv.verbindung("SELECT * FROM verwaltung WHERE UserID = '"+userID+"' AND MedienID = '"+medienID+"' AND Datum = '"+datum+"' AND Stunde = '"+stunde+"'"); //funktioniert
+                ResultSet rs = dbv.verbindung("SELECT * FROM verwaltung WHERE MedienID = '"+medienID+"' AND Datum = '"+datum+"' AND Stunde = '"+stunde+"'"); //UserID = '"+userID+"' AND 
                 String[][] a = rsToArray(rs);
                 dbv.close();
 
@@ -379,14 +380,6 @@ public class MV
     {
         Object[][] zeitplan = new Object[5][11];
 
-        /*for (int e = 0; e < 5; e++)
-        {
-        for (int f = 1; f < 11; f++)
-        {
-        zeitplan[e][f] = false;
-        }
-        }*/
-
         zeitplan[0][0] = date;
         for (int i = 1; i < 5; i++)
         {
@@ -418,7 +411,7 @@ public class MV
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT Name FROM user WHERE ID = '"+id+"'");  //funktioniert
+            ResultSet rs = dbv.verbindung("SELECT Name FROM user WHERE ID = '"+id+"'"); 
             String[][] a = rsToArray(rs);
             dbv.close();
             return a[0][0];
@@ -435,7 +428,7 @@ public class MV
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT ID FROM user WHERE Name = '"+name+"'");  //funktioniert
+            ResultSet rs = dbv.verbindung("SELECT ID FROM user WHERE Name = '"+name+"'"); 
             String[][] a = rsToArray(rs);
             dbv.close();
             return a[0][0];
@@ -452,7 +445,7 @@ public class MV
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT Name FROM medien WHERE ID = '"+id+"'");  //funktioniert
+            ResultSet rs = dbv.verbindung("SELECT Name FROM medien WHERE ID = '"+id+"'"); 
             String[][] a = rsToArray(rs);
             dbv.close();
             return a[0][0];
@@ -469,7 +462,7 @@ public class MV
         try
         {
             dbv.connect();
-            ResultSet rs = dbv.verbindung("SELECT ID FROM medien WHERE Name = '"+name+"'");  //funktioniert
+            ResultSet rs = dbv.verbindung("SELECT ID FROM medien WHERE Name = '"+name+"'");
             String[][] a = rsToArray(rs);
             dbv.close();
             return a[0][0];
