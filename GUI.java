@@ -502,8 +502,8 @@ public class GUI
                         {
                             if(mv.login(benutzername, passwort)!= 0)
                             {
-                                String h = nutzername.toLowerCase();
-                                h = benutzername;
+                                String h = benutzername.toLowerCase();
+                               nutzername = h;
                                 initialize();
                                 frame.setVisible(true);
                                 frmLogin.setVisible(false);
