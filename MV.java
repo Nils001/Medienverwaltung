@@ -102,7 +102,7 @@ public class MV
                 String medienID = mediumToID(nameM);
                 String userID = nameToID(nameU);
                 dbv.connect();
-                dbv.verbindung2("INSERT INTO verwaltung VALUES (NULL, '"+userID+"', '"+medienID+"', '"+datum+"', '"+stunde+"', timestamp)");
+                dbv.verbindung2("INSERT INTO verwaltung VALUES (NULL, '"+userID+"', '"+medienID+"', '"+datum+"', '"+stunde+"')");
                 dbv.close();
             }
             catch (Exception e)

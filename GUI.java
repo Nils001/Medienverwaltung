@@ -254,16 +254,22 @@ public class GUI
                         for(int zeile=0;zeile<10;zeile++ )
                         {
                             String tabelle = (String) table.getValueAt(zeile+1,spalte+1);
-                            String tabelleLowerCase = tabelle.toLowerCase();
-                            String vorher  = (String) medien[spalte][zeile];
-                            String datum = (String) medien[spalte][1];
-                            String medienName = (String) comboBox_3.getSelectedItem();
-                            String Stunde = String.valueOf(zeile+1);
-                            if(tabelleLowerCase.equals(nutzername))
+                            if (tabelle != null)
                             {
-                                if(!tabelleLowerCase.equals(vorher) && vorher == null)
-                                {                    
-                                    mv.set(nutzername,medienName,datum,Stunde);
+                                String tabelleLowerCase = tabelle.toLowerCase();
+                                if (medien[spalte][zeile] == null)
+                                {
+                                    String vorher  = (String) medien[spalte][zeile];
+                                    String datum = (String) medien[spalte][0];
+                                    String medienName = (String) comboBox_3.getSelectedItem();
+                                    String Stunde = String.valueOf(zeile+1);
+                                    if(tabelleLowerCase.equals(nutzername))
+                                    {
+                                        //if(!tabelleLowerCase.equals(vorher) && vorher == null)
+                                        //{                    
+                                        mv.set(nutzername,medienName,datum,Stunde);
+                                        //}
+                                    }
                                 }
                             }
                         }
@@ -503,7 +509,7 @@ public class GUI
                             if(mv.login(benutzername, passwort)!= 0)
                             {
                                 String h = benutzername.toLowerCase();
-                               nutzername = h;
+                                nutzername = h;
                                 initialize();
                                 frame.setVisible(true);
                                 frmLogin.setVisible(false);
@@ -524,8 +530,6 @@ public class GUI
         frmLogin.getContentPane().add(btnNewButton);
         frmLogin.setVisible(true);
     }
-
-   
 
     public void unterschied_raum()
     {
